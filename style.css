@@ -78,3 +78,112 @@
 .catalog-item button.owned-item{background:#e6f4ec;color:#197044}
 .catalog-footnote{font-size:11px;color:#77828a;margin-top:10px}
 @media(max-width:700px){.wallet-layout{grid-template-columns:1fr}.coin-pill{order:0}.header-actions{gap:5px}.coin-pill{font-size:11px;padding:5px 8px}}
+
+
+/* BLOXITY v0.8 — 2017-inspired navigation and page layouts */
+:root{--bx-blue:#0067b1;--bx-bright:#00a2e8;--bx-border:#c9c9c9;--bx-panel:#fff;--bx-text:#333}
+body{background:#e7e7e7;color:var(--bx-text);font-family:Arial,Helvetica,sans-serif}
+.topbar{background:#0067b1;min-height:58px;padding:8px max(3%,calc((100% - 1180px)/2));gap:18px;box-shadow:0 2px 4px #0002}
+.brand img{width:42px;height:42px;border-radius:7px;border:1px solid #ffffff55}
+.main-nav{display:flex;align-items:center;gap:0;flex:1;flex-wrap:wrap}
+.topbar .main-nav a{font-size:14px;padding:12px 10px;border-radius:3px}
+.topbar .main-nav a:hover,.topbar .main-nav a.active{background:#07558e;color:#fff}
+.header-actions{gap:6px}
+.coin-pill{background:#07558e;border-color:#55b7ed}
+.welcome{border:1px solid #d2d2d2;border-radius:3px;box-shadow:0 1px 3px #0001}
+.home-shortcuts{max-width:1180px;margin:20px auto;background:#fff;border:1px solid #d0d0d0;padding:18px}
+.home-shortcuts p{color:#777;font-size:14px}
+.shortcut-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shortcut-row a{background:#f5f5f5;border:1px solid #d0d0d0;padding:13px;color:#126da8;text-decoration:none;font-weight:bold}
+.shortcut-row span{float:right;font-size:20px}
+.page-view{display:none!important}
+.page-view.active{display:block!important}
+.section{max-width:1180px;margin:20px auto}
+.section-heading{margin-bottom:13px}
+.section-heading h2{font-size:24px;font-weight:500;margin:0}
+.subheading{font-size:12px;color:#777}
+.games-toolbar{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:12px;background:#f4f4f4;border:1px solid #c9c9c9;padding:12px;margin:15px 0 20px}
+.games-toolbar label{display:flex;flex-direction:column;gap:5px;margin:0}
+.games-toolbar label span{font-size:12px;color:#555;font-weight:600}
+.games-toolbar select,.games-toolbar input{width:100%;background:#fff;color:#333;border:1px solid #bcbcbc;border-radius:2px;padding:10px;font-size:14px}
+.games-section-title{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.games-section-title h3{font-size:20px;font-weight:400;margin:0}
+.games-section-title span{background:#00a2e8;color:#fff;padding:8px 17px;border-radius:2px;font-size:13px}
+.game-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.game-card{padding:0;border:1px solid #c9c9c9;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px #0002;min-width:0}
+.game-art{height:auto;aspect-ratio:1.18;display:flex;align-items:center;justify-content:center;border-radius:0;font-size:62px;position:relative}
+.game-art:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#ffffff18,transparent 60%)}
+.game-art span{z-index:1;text-shadow:0 2px 5px #0004}
+.art-brick{background:linear-gradient(145deg,#59a7dc,#1a548b 55%,#263f65)}
+.art-survival{background:linear-gradient(145deg,#a9b1b8,#555e69 60%,#252b32)}
+.art-tycoon{background:linear-gradient(145deg,#7bc6a0,#23835c 60%,#17543e)}
+.art-obby{background:linear-gradient(145deg,#f5b4dc,#8c6bd0 55%,#3d7fc1)}
+.art-adventure{background:linear-gradient(145deg,#70c9e5,#298b9c 55%,#28536e)}
+.art-arena{background:linear-gradient(145deg,#e6a65d,#b74b43 55%,#66354d)}
+.game-info{padding:9px 10px 10px}
+.game-info h3{font-size:16px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 0 5px}
+.game-info p{font-size:13px;color:#777;margin:0 0 6px}
+.game-rating{font-size:13px;color:#4b9a68;display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.game-rating span{color:#777;font-size:11px}
+.game-open{width:100%;border:1px solid #b9b9b9;background:#f8f8f8;color:#333;padding:8px;border-radius:2px;font-size:13px}
+.game-open:hover{background:#e9f5fc;border-color:#70b7dc}
+.game-dialog-body{padding:18px}
+.game-dialog-art{height:150px;background:linear-gradient(135deg,#1683c1,#064b80);display:grid;place-items:center;color:#fff;font-size:70px}
+.game-dialog-body p{color:#666;font-size:14px}
+.avatar-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.rig-switch{display:inline-flex;border:1px solid #bcbcbc;background:#eee;padding:3px;border-radius:20px}
+.rig-btn{border:0;background:transparent;padding:7px 18px;border-radius:18px;color:#555;font-weight:bold}
+.rig-btn.active{background:#00a2e8;color:#fff}
+.avatar-era{font-size:12px;color:#777}
+.avatar-categories{display:flex;gap:0;overflow-x:auto;background:#fff;border:1px solid #c8c8c8;margin-bottom:12px}
+.avatar-tab{flex:1;min-width:max-content;border:0;border-bottom:4px solid transparent;background:#fff;padding:13px 16px;color:#444;font-size:14px}
+.avatar-tab.active{border-bottom-color:#00a2e8;font-weight:bold;color:#0876b5}
+.avatar-layout{grid-template-columns:minmax(220px,.8fr) minmax(0,1.5fr);border:1px solid #c8c8c8;border-radius:2px;padding:12px}
+.avatar-stage{background:#e3e3e3;border-radius:2px}
+.avatar-controls{background:#fff;border:1px solid #ddd;padding:14px}
+.catalog-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.catalog-item{border-radius:2px;border:1px solid #c9c9c9;box-shadow:0 1px 2px #0001}
+.catalog-art{border-radius:2px}
+.catalog-item button{border-radius:2px}
+.friends-panel,.wallet-card,.transactions-card,.catalog-toolbar,.catalog-equipped{border-radius:2px;border:1px solid #ccc}
+button,.signup,.primary{border-radius:2px}
+footer{background:#333}
+@media(max-width:800px){
+ .topbar{padding:8px 12px;gap:8px}
+ .main-nav{order:3;flex-basis:100%;overflow-x:auto;flex-wrap:nowrap}
+ .topbar .main-nav a{white-space:nowrap;padding:10px 9px}
+ .header-actions{margin-left:auto}
+ .welcome{margin:14px 12px;padding:20px}
+ .home-shortcuts{margin:14px 12px}
+ .section{margin:18px 12px}
+ .games-toolbar{grid-template-columns:1fr 1fr}
+ .games-toolbar .game-search{grid-column:1/-1}
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .avatar-layout{grid-template-columns:1fr}
+ .catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:430px){
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .game-info h3{font-size:14px}
+ .game-art{font-size:48px}
+ .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .shortcut-row{grid-template-columns:1fr}
+ .avatar-tab{padding:11px 13px}
+}
+
+/* BLOXITY v0.8.2 — Classic 2017 revival pass */
+:root{--bx-blue:#00a2ff;--bx-darkblue:#0077c8;--bx-panel:#fff;--bx-border:#c6c6c6}
+body{background:#e5e5e5;color:#333;font-family:Arial,Helvetica,sans-serif}
+.topbar{background:#00a2ff;box-shadow:none;border-bottom:1px solid #168bd0;min-height:54px;padding:7px max(2%,calc((100% - 1180px)/2));gap:12px}
+.brand{font-size:22px;letter-spacing:0}.brand img{width:42px;height:42px;object-fit:contain;border:0;border-radius:5px}
+.topbar .main-nav{gap:0}.topbar .main-nav a{font-size:14px;font-weight:700;padding:13px 10px;border-radius:0;color:#fff}.topbar .main-nav a:hover,.topbar .main-nav a.active{background:#087fc7;text-decoration:underline}
+.header-actions{gap:5px}.coin-pill{background:#087fc7;border:1px solid #69c7ff;border-radius:3px;padding:6px 9px}.login,.signup{font-size:13px;padding:9px 11px;border-radius:3px}.signup{background:#fff;color:#0077b9;border:1px solid #d4eaf7}
+.welcome{max-width:1180px;margin:18px auto 0;min-height:0;padding:20px 24px;border:1px solid #c9c9c9;border-radius:3px;box-shadow:0 1px 2px #0002;align-items:center;gap:18px}.welcome h1{font-size:27px;line-height:1.15;margin:8px 0 10px;color:#333}.welcome .eyebrow{font-size:12px;letter-spacing:1px;color:#0077b9}.welcome p:not(.eyebrow){font-size:15px;line-height:1.4;color:#555;margin:8px 0}.welcome-mark img{width:100px;height:100px;border-radius:8px}.welcome .large{margin-top:8px;padding:9px 15px;font-size:14px;border:1px solid #007cc4}
+.home-shortcuts{max-width:1180px;margin:16px auto;background:#fff;border:1px solid #c9c9c9;border-radius:3px;padding:13px 16px}.home-shortcuts .section-heading{margin:0 0 10px}.home-shortcuts .section-heading h2{font-size:20px;font-weight:400;margin:0}.home-shortcuts p{font-size:13px;color:#666}.shortcut-row{gap:8px}.shortcut-row a{background:#f7f7f7;border:1px solid #c9c9c9;border-radius:2px;padding:10px;color:#0077b9;font-size:13px}
+.section{max-width:1180px;margin:18px auto}.section-heading{margin-bottom:10px}.section-heading h2{font-size:21px;font-weight:400;color:#333}.subheading{font-size:12px;color:#777}
+.games-toolbar{background:#f1f1f1;border:1px solid #c8c8c8;border-radius:2px;padding:10px;margin:12px 0 16px}.games-toolbar select,.games-toolbar input{border:1px solid #aaa;border-radius:2px;padding:8px;background:#fff;color:#333}.games-section-title h3{font-size:20px;font-weight:400}.games-section-title span{background:#00a2ff;border-radius:2px}
+.game-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.game-card{padding:0;background:#fff;border:1px solid #c5c5c5;border-radius:3px;box-shadow:0 1px 3px #0002;overflow:hidden}.game-art{aspect-ratio:1.12;height:auto;border-radius:0;font-size:54px}.game-info{padding:8px 9px 9px}.game-info h3{font-size:15px;color:#333;margin:0 0 4px}.game-info p{font-size:12px;color:#777;margin:0 0 5px}.game-rating{font-size:12px;margin-bottom:7px}.game-open{background:#f7f7f7;border:1px solid #aaa;border-radius:2px;color:#333;padding:7px;font-size:12px}.game-open:hover{background:#eaf6fd;border-color:#7db9dc}
+.avatar-layout,.friends-panel,.catalog-toolbar,.catalog-equipped,.wallet-card,.transactions-card{border-radius:3px;border:1px solid #c8c8c8;box-shadow:0 1px 2px #0001}.avatar-stage{border-radius:2px}.avatar-categories{border-radius:2px}.avatar-tab{font-size:13px}.catalog-item{border-radius:2px;box-shadow:0 1px 2px #0002}.catalog-item h3{font-size:13px}.catalog-item button{border-radius:2px}.wallet-card{border-radius:3px}.wallet-symbol{border-radius:3px}footer{background:#333;border-top:1px solid #555}
+button,input,select{font-family:Arial,Helvetica,sans-serif}
+@media(max-width:800px){.topbar{padding:7px 10px}.welcome{margin:12px 10px 0;padding:16px}.welcome h1{font-size:23px}.welcome-mark img{width:76px;height:76px}.home-shortcuts{margin:12px 10px;padding:12px}.section{margin:16px 10px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.game-art{aspect-ratio:1.05;font-size:43px}.game-info{padding:7px}.game-info h3{font-size:13px}.game-open{padding:7px 4px}.games-toolbar{gap:8px;padding:8px}}
+@media(max-width:430px){.brand{font-size:19px}.brand img{width:36px;height:36px}.header-actions{gap:3px}.login,.signup{font-size:12px;padding:8px 7px}.topbar .main-nav a{font-size:13px;padding:10px 8px}.welcome{gap:10px}.welcome h1{font-size:21px}.welcome p:not(.eyebrow){font-size:14px}.welcome-mark img{width:65px;height:65px}.game-art{font-size:38px}}
