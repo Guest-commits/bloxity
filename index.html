@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#00a2ff">
+<title>BLOXITY</title><link rel="icon" href="assets/logo.png"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+ <a class="brand" href="#home"><img src="assets/logo.png" alt="BLOXITY"><span>BLOXITY</span></a>
+ <nav><a href="#home" data-i18n="navHome">Inicio</a><a href="#games" data-i18n="navGames">Juegos</a><a href="#avatar" data-i18n="navAvatar">Avatar</a><a href="#friends" data-i18n="navFriends">Amigos</a><a href="#catalog" data-i18n="navCatalog">Catálogo</a><a href="#economy">BloxCoins</a></nav>
+ <div class="header-actions"><div class="coin-pill" title="BloxCoins"><span class="coin-mark">◇</span><strong id="headerCoins">---</strong></div><select id="language" aria-label="Language"><option value="es">ES</option><option value="en">EN</option></select>
+ <button id="openLogin" class="login" data-i18n="login">Iniciar sesión</button><button id="openRegister" class="signup" data-i18n="signup">Registrarse</button><button id="logout" class="login hidden" data-i18n="logout">Cerrar sesión</button></div>
+</header>
+<main id="home">
+ <section class="welcome"><div><p class="eyebrow" data-i18n="eyebrow">UN MUNDO DE JUEGOS</p><h1 data-i18n="welcome">¡Bienvenido a BLOXITY!</h1><p data-i18n="intro">Descubre juegos, personaliza tu avatar y conoce a otros jugadores.</p><a class="signup large" href="#register" id="heroJoin" data-i18n="join">Únete a BLOXITY</a><p id="accountStatus" class="status" aria-live="polite">No has iniciado sesión.</p></div><div class="welcome-mark"><img src="assets/logo.png" alt=""></div></section>
+
+
+ <section id="economy" class="section">
+  <div class="section-heading"><h2>Economía BLOXITY</h2><span>v0.7</span></div>
+  <div class="wallet-layout">
+   <div class="wallet-card">
+    <div class="wallet-top"><span>MI SALDO</span><span class="wallet-symbol">◇</span></div>
+    <div class="wallet-balance"><strong id="coinBalance">---</strong><span>BloxCoins</span></div>
+    <p id="walletStatus">Inicia sesión para consultar tu saldo.</p>
+    <button id="claimDaily" class="primary" type="button" disabled>🎁 Recompensa diaria +100</button>
+    <p id="dailyStatus" class="small-message" aria-live="polite"></p>
+   </div>
+   <div class="transactions-card">
+    <div class="section-heading"><h3>Actividad reciente</h3><span>Últimos movimientos</span></div>
+    <div id="transactionList" class="transaction-list"><p class="empty">Inicia sesión para ver tus movimientos.</p></div>
+   </div>
+  </div>
+ </section>
+
+ <section id="avatar" class="section">
+  <div class="section-heading"><h2 data-i18n="avatarTitle">Mi avatar R6</h2><span data-i18n="classicAvatar">Clásico · 6 partes</span></div>
+  <div class="avatar-layout">
+   <div class="avatar-stage"><div id="avatar3d" class="avatar3d" role="img" aria-label="Vista previa 3D de avatar R6"></div><div id="avatarFigure" class="r6-avatar hidden" aria-hidden="true">
+    <div class="r6-head"></div><div class="r6-arms"><div class="r6-arm left"></div><div class="r6-torso"></div><div class="r6-arm right"></div></div><div class="r6-legs"><div class="r6-leg"></div><div class="r6-leg"></div></div>
+   </div><div class="animation-controls"><span data-i18n="animationLabel">Animación</span><div class="animation-buttons"><button type="button" class="anim-btn active" data-animation="idle">Idle</button><button type="button" class="anim-btn" data-animation="walk">Caminar</button><button type="button" class="anim-btn" data-animation="jump">Saltar</button></div></div></div>
+   <div class="avatar-controls">
+    <p data-i18n="avatarHelp">Personaliza los colores de tu avatar. Inicia sesión para guardar los cambios.</p>
+    <label for="bodyColor" data-i18n="bodyColor">Color de cabeza y brazos</label><input id="bodyColor" type="color" value="#f2c078">
+    <label for="shirtColor" data-i18n="shirtColor">Color de camiseta</label><input id="shirtColor" type="color" value="#00a2ff">
+    <label for="pantsColor" data-i18n="pantsColor">Color de pantalones</label><input id="pantsColor" type="color" value="#30343b">
+    <label for="headStyle" data-i18n="headStyle">Forma de cabeza</label><select id="headStyle" class="avatar-select"><option value="block">Clásica cuadrada</option><option value="round">Redondeada</option></select>
+    <label for="faceStyle" data-i18n="faceStyle">Cara clásica</label><select id="faceStyle" class="avatar-select"><option value="smile">Sonrisa clásica</option><option value="happy">Sonrisa alegre</option><option value="surprised">Sorprendida</option><option value="neutral">Neutral</option></select>
+    <button id="saveAvatar" class="primary" data-i18n="saveAvatar">Guardar avatar</button><p id="avatarMessage" class="small-message" aria-live="polite"></p>
+   </div>
+  </div>
+ </section>
+
+ <section id="friends" class="section">
+  <div class="section-heading"><h2 data-i18n="friendsTitle">Mis amigos</h2><span id="friendCount">0</span></div>
+  <div class="friends-panel">
+   <div class="friend-search"><label for="friendUsername" data-i18n="findPlayer">Buscar jugador por nombre</label><div class="search-row"><input id="friendUsername" maxlength="20" placeholder="NombreDeUsuario"><button id="sendRequest" class="primary" data-i18n="addFriend">Agregar amigo</button></div><p id="friendMessage" class="small-message" aria-live="polite"></p></div>
+   <div class="friend-columns">
+    <div><h3 data-i18n="incoming">Solicitudes recibidas</h3><div id="incomingList" class="friend-list"><p class="empty" data-i18n="loginFriends">Inicia sesión para ver tus solicitudes.</p></div></div>
+    <div><h3 data-i18n="myFriends">Amigos</h3><div id="friendsList" class="friend-list"><p class="empty" data-i18n="loginFriends">Inicia sesión para ver tus amigos.</p></div></div>
+   </div>
+  </div>
+ </section>
+
+ <section id="games" class="section"><div class="section-heading"><h2 data-i18n="featured">Juegos destacados</h2><span data-i18n="coming">Próximamente</span></div><div class="game-grid">
+ <article class="game-card"><div class="game-art blue">B</div><h3>Brick Battle</h3><p data-i18n="gameSoon">Próximamente</p></article>
+ <article class="game-card"><div class="game-art orange">★</div><h3>Survival</h3><p data-i18n="gameSoon">Próximamente</p></article>
+ <article class="game-card"><div class="game-art green">◆</div><h3>Classic Tycoon</h3><p data-i18n="gameSoon">Próximamente</p></article></div></section>
+ <section id="catalog" class="section">
+  <div class="section-heading"><h2 data-i18n="catalogTitle">Catálogo</h2><span id="catalogCount">12 artículos</span></div>
+  <div class="catalog-toolbar"><input id="catalogSearch" type="search" placeholder="Buscar artículos..." aria-label="Buscar artículos"><div id="catalogFilters" class="catalog-filters"><button class="catalog-filter active" data-category="all">Todos</button><button class="catalog-filter" data-category="hats">Sombreros</button><button class="catalog-filter" data-category="hair">Pelo</button><button class="catalog-filter" data-category="faces">Caras</button><button class="catalog-filter" data-category="shirts">Camisetas</button><button class="catalog-filter" data-category="pants">Pantalones</button><button class="catalog-filter" data-category="back">Espalda</button></div></div>
+  <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+  <div class="catalog-equipped"><div><h3 data-i18n="equippedTitle">Artículos equipados</h3><p id="equippedSummary">Todavía no has equipado artículos.</p></div><button id="clearCatalog" class="login dark-login" type="button">Quitar todo</button></div>
+  <p id="catalogMessage" class="small-message" aria-live="polite"></p>
+  <p class="catalog-footnote">Compra artículos con BloxCoins. Los artículos comprados quedan en tu inventario.</p>
+ </section>
+</main>
+<dialog id="authDialog"><div class="dialog-head"><strong id="dialogTitle">Iniciar sesión</strong><button id="closeDialog" class="close">×</button></div><form id="authForm">
+<label id="usernameLabel" class="hidden" for="username" data-i18n="username">Nombre de usuario</label><input id="username" class="hidden" autocomplete="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" placeholder="Jugador123">
+<label for="email" data-i18n="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" required maxlength="254" placeholder="tu@correo.com">
+<label for="password" data-i18n="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72" placeholder="••••••••">
+<p id="authMessage" class="auth-message" role="status"></p><button id="submitAuth" class="signup submit" type="submit">Iniciar sesión</button></form><p class="privacy" data-i18n="privacy">Usa una contraseña única. Nunca compartas tu contraseña con nadie.</p></dialog>
+<footer><span>© 2026 BLOXITY</span><span data-i18n="footer">Plataforma independiente inspirada en la estética de los juegos de 2017.</span></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script><script src="config.js"></script><script src="script.js"></script>
+</body></html>
