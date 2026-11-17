@@ -1,6 +1,6 @@
 const translations={
-es:{navHome:"Inicio",navGames:"Juegos",navAvatar:"Avatar",navFriends:"Amigos",navCatalog:"Catálogo",login:"Iniciar sesión",signup:"Registrarse",logout:"Cerrar sesión",eyebrow:"UN MUNDO DE JUEGOS",welcome:"¡Bienvenido a BLOXITY!",intro:"Descubre juegos, personaliza tu avatar y conoce a otros jugadores.",join:"Únete a BLOXITY",avatarTitle:"Mi avatar R6",classicAvatar:"Clásico · 6 partes",avatarHelp:"Personaliza los colores de tu avatar. Inicia sesión para guardar los cambios.",bodyColor:"Color de cabeza y brazos",shirtColor:"Color de camiseta",pantsColor:"Color de pantalones",saveAvatar:"Guardar avatar",friendsTitle:"Mis amigos",findPlayer:"Buscar jugador por nombre",addFriend:"Agregar amigo",incoming:"Solicitudes recibidas",myFriends:"Amigos",loginFriends:"Inicia sesión para ver tus amigos y solicitudes.",featured:"Juegos destacados",coming:"Próximamente",gameSoon:"Próximamente",catalogTitle:"Catálogo",catalogText:"Pronto podrás descubrir artículos para personalizar tu avatar.",footer:"Plataforma independiente inspirada en la estética de los juegos de 2017.",username:"Nombre de usuario",email:"Correo electrónico",password:"Contraseña",privacy:"Usa una contraseña única. Nunca compartas tu contraseña con nadie.",notLogged:"No has iniciado sesión.",logged:"Sesión iniciada como"},
-en:{navHome:"Home",navGames:"Games",navAvatar:"Avatar",navFriends:"Friends",navCatalog:"Catalog",login:"Log in",signup:"Sign up",logout:"Log out",eyebrow:"A WORLD OF GAMES",welcome:"Welcome to BLOXITY!",intro:"Discover games, customize your avatar, and meet other players.",join:"Join BLOXITY",avatarTitle:"My R6 avatar",classicAvatar:"Classic · 6 parts",avatarHelp:"Customize your avatar colors. Sign in to save your changes.",bodyColor:"Head and arms color",shirtColor:"Shirt color",pantsColor:"Pants color",saveAvatar:"Save avatar",friendsTitle:"My friends",findPlayer:"Find player by username",addFriend:"Add friend",incoming:"Incoming requests",myFriends:"Friends",loginFriends:"Sign in to see your friends and requests.",featured:"Featured games",coming:"Coming soon",gameSoon:"Coming soon",catalogTitle:"Catalog",catalogText:"Soon you'll be able to discover items to customize your avatar.",footer:"Independent platform inspired by the look and feel of 2017 games.",username:"Username",email:"Email address",password:"Password",privacy:"Use a unique password. Never share your password with anyone.",notLogged:"You are not logged in.",logged:"Signed in as"}
+es:{navHome:"Inicio",navGames:"Juegos",navAvatar:"Avatar",navFriends:"Amigos",navCatalog:"Catálogo",login:"Iniciar sesión",signup:"Registrarse",logout:"Cerrar sesión",eyebrow:"UN MUNDO DE JUEGOS",welcome:"¡Bienvenido a BLOXITY!",intro:"Descubre juegos, personaliza tu avatar y conoce a otros jugadores.",join:"Únete a BLOXITY",avatarTitle:"Mi avatar R6",classicAvatar:"Clásico · 6 partes",avatarHelp:"Personaliza los colores de tu avatar. Inicia sesión para guardar los cambios.",bodyColor:"Color de cabeza y brazos",shirtColor:"Color de camiseta",pantsColor:"Color de pantalones",saveAvatar:"Guardar avatar",friendsTitle:"Mis amigos",findPlayer:"Buscar jugador por nombre",addFriend:"Agregar amigo",incoming:"Solicitudes recibidas",myFriends:"Amigos",loginFriends:"Inicia sesión para ver tus amigos y solicitudes.",featured:"Juegos destacados",coming:"Próximamente",gameSoon:"Próximamente",catalogTitle:"Catálogo",catalogText:"Pronto podrás descubrir artículos para personalizar tu avatar.",footer:"Plataforma independiente inspirada en la estética de los juegos de 2017.",username:"Nombre de usuario",password:"Contraseña",privacy:"Usa una contraseña única. Nunca compartas tu contraseña con nadie.",notLogged:"No has iniciado sesión.",logged:"Sesión iniciada como"},
+en:{navHome:"Home",navGames:"Games",navAvatar:"Avatar",navFriends:"Friends",navCatalog:"Catalog",login:"Log in",signup:"Sign up",logout:"Log out",eyebrow:"A WORLD OF GAMES",welcome:"Welcome to BLOXITY!",intro:"Discover games, customize your avatar, and meet other players.",join:"Join BLOXITY",avatarTitle:"My R6 avatar",classicAvatar:"Classic · 6 parts",avatarHelp:"Customize your avatar colors. Sign in to save your changes.",bodyColor:"Head and arms color",shirtColor:"Shirt color",pantsColor:"Pants color",saveAvatar:"Save avatar",friendsTitle:"My friends",findPlayer:"Find player by username",addFriend:"Add friend",incoming:"Incoming requests",myFriends:"Friends",loginFriends:"Sign in to see your friends and requests.",featured:"Featured games",coming:"Coming soon",gameSoon:"Coming soon",catalogTitle:"Catalog",catalogText:"Soon you'll be able to discover items to customize your avatar.",footer:"Independent platform inspired by the look and feel of 2017 games.",username:"Username",password:"Password",privacy:"Use a unique password. Never share your password with anyone.",notLogged:"You are not logged in.",logged:"Signed in as"}
 };
 let lang="es",mode="login",client=null,profile=null;
 const $=id=>document.getElementById(id), tr=k=>translations[lang][k]||k;
@@ -9,11 +9,12 @@ $("language").addEventListener("change",e=>setLang(e.target.value));
 const cfg=window.BLOXITY_CONFIG||{};
 if(window.supabase&&cfg.SUPABASE_URL?.startsWith("https://")&&cfg.SUPABASE_ANON_KEY&&!cfg.SUPABASE_ANON_KEY.includes("PASTE_"))client=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
 function updateStatus(){ $("accountStatus").textContent=profile?tr("logged")+" "+profile.username:tr("notLogged");$("openLogin").classList.toggle("hidden",!!profile);$("openRegister").classList.toggle("hidden",!!profile);$("logout").classList.toggle("hidden",!profile);$("heroJoin").classList.toggle("hidden",!!profile);if(!profile){$("incomingList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendsList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendCount").textContent="0"}}
-function authOpen(m){mode=m;$("authMessage").textContent="";$("dialogTitle").textContent=tr(m);$("submitAuth").textContent=tr(m);const reg=m==="signup";$("username").classList.toggle("hidden",!reg);$("usernameLabel").classList.toggle("hidden",!reg);$("username").required=reg;$("authDialog").showModal()}
+function authOpen(m){mode=m;$("authMessage").textContent="";$("dialogTitle").textContent=tr(m);$("submitAuth").textContent=tr(m);$("username").classList.remove("hidden");$("usernameLabel").classList.remove("hidden");$("username").required=true;$("username").value="";$("password").value="";$("authDialog").showModal()}
 $("openLogin").onclick=()=>authOpen("login");$("openRegister").onclick=()=>authOpen("signup");$("heroJoin").onclick=e=>{e.preventDefault();authOpen("signup")};$("closeDialog").onclick=()=>$("authDialog").close();
 function msg(id,s,err=false){$(id).textContent=s;$(id).style.color=err?"#b33":"#18783b"}
-async function loadProfile(user){if(!client||!user)return;let {data,error}=await client.from("profiles").select("username,body_color,shirt_color,pants_color,head_style,face_style,equipped_items").eq("id",user.id).single();if(error){profile={username:user.user_metadata?.username||user.email?.split("@")[0]||"Player"};return}profile=data;$("bodyColor").value=data.body_color||"#f2c078";$("shirtColor").value=data.shirt_color||"#00a2ff";$("pantsColor").value=data.pants_color||"#30343b";$("headStyle").value=data.head_style||"block";$("faceStyle").value=data.face_style||"smile";equippedItems=Array.isArray(data.equipped_items)?data.equipped_items:[];renderAvatar();if(window.bloxityR6)window.bloxityR6.setEquipped(equippedItems);renderCatalog();updateStatus();await loadFriends();await loadEconomy()}
-$("authForm").onsubmit=async e=>{e.preventDefault();if(!client){msg("authMessage",lang==="es"?"Supabase no está configurado. Consulta SETUP.md.":"Supabase is not configured. See SETUP.md.",true);return}const email=$("email").value.trim(),password=$("password").value,username=$("username").value.trim();if(mode==="signup"&&!/^[A-Za-z0-9_]{3,20}$/.test(username)){msg("authMessage",lang==="es"?"Usuario: 3–20 letras, números o _.":"Username: 3–20 letters, numbers, or _.",true);return}try{let r=mode==="signup"?await client.auth.signUp({email,password,options:{data:{username}}}):await client.auth.signInWithPassword({email,password});if(r.error)throw r.error;if(mode==="signup"&&!r.data.session){msg("authMessage",lang==="es"?"Cuenta creada. Confirma tu correo para entrar.":"Account created. Confirm your email to sign in.");return}if(r.data.user){await loadProfile(r.data.user);$("authDialog").close();$("authForm").reset()}}catch(err){msg("authMessage",err.message,true)}};
+async function loadProfile(user){if(!client||!user)return;let {data,error}=await client.from("profiles").select("username,body_color,shirt_color,pants_color,head_style,face_style,equipped_items").eq("id",user.id).single();if(error){profile={username:user.user_metadata?.username||"Player"};return}profile=data;$("bodyColor").value=data.body_color||"#f2c078";$("shirtColor").value=data.shirt_color||"#00a2ff";$("pantsColor").value=data.pants_color||"#30343b";$("headStyle").value=data.head_style||"block";$("faceStyle").value=data.face_style||"smile";equippedItems=Array.isArray(data.equipped_items)?data.equipped_items:[];renderAvatar();if(window.bloxityR6)window.bloxityR6.setEquipped(equippedItems);renderCatalog();updateStatus();await loadFriends();await loadEconomy()}
+function usernameAuthEmail(username){return username.trim().toLowerCase()+"@users.bloxity.invalid"}
+$("authForm").onsubmit=async e=>{e.preventDefault();if(!client){msg("authMessage",lang==="es"?"Supabase no está configurado. Revisa config.js.":"Supabase is not configured. Check config.js.",true);return}const username=$("username").value.trim(),password=$("password").value;if(!/^[A-Za-z0-9_]{3,20}$/.test(username)){msg("authMessage",lang==="es"?"El nombre de usuario debe tener 3–20 caracteres: letras, números o _.":"Username must be 3–20 characters: letters, numbers, or _.",true);return}if(password.length<8){msg("authMessage",lang==="es"?"La contraseña debe tener al menos 8 caracteres.":"Password must be at least 8 characters.",true);return}const email=usernameAuthEmail(username);try{let r=mode==="signup"?await client.auth.signUp({email,password,options:{data:{username}}}):await client.auth.signInWithPassword({email,password});if(r.error)throw r.error;if(mode==="signup"&&!r.data.session){msg("authMessage",lang==="es"?"La cuenta se creó, pero Supabase todavía exige confirmar un correo. En Supabase ve a Authentication → Providers → Email y desactiva Confirm email; después vuelve a registrarte.":"The account was created, but Supabase still requires email confirmation. In Supabase, go to Authentication → Providers → Email and turn off Confirm email, then register again.",true);return}if(r.data.user){await loadProfile(r.data.user);$("authDialog").close();$("authForm").reset()}}catch(err){const text=String(err.message||err);const friendly=/already registered|already exists|user already/i.test(text)?(lang==="es"?"Ese nombre de usuario ya está registrado. Elige otro.":"That username is already registered. Choose another."):text;msg("authMessage",friendly,true)}};
 $("logout").onclick=async()=>{if(client){const {error}=await client.auth.signOut();if(error){msg("friendMessage",error.message,true);return}}profile=null;updateStatus();loadEconomy()};
 let equippedItems=[];
 function renderAvatar(){const f=$("avatarFigure");f.style.setProperty("--skin",$("bodyColor").value);f.style.setProperty("--shirt",$("shirtColor").value);f.style.setProperty("--pants",$("pantsColor").value);if(window.bloxityR6)window.bloxityR6.update()}
@@ -112,7 +113,7 @@ $("avatarFigure").classList.add("anim-idle");
    if(item.kind==="face"){ $("faceStyle").value=item.face;rebuildHead()}
   });
  }
- window.bloxityR6={update(){skin.color.set($("bodyColor").value);shirt.color.set($("shirtColor").value);pants.color.set($("pantsColor").value);rebuildHead();setEquipped(equippedItems)},setAnimation(a){animation=a},setEquipped};
+ window.bloxityR6={update(){skin.color.set($("bodyColor").value);shirt.color.set($("shirtColor").value);pants.color.set($("pantsColor").value);rebuildHead();setEquipped(equippedItems)},setAnimation(a){animation=a},setEquipped,setRig(kind){rig.scale.set(kind==="r15"?.94:1,kind==="r15"?1.04:1,kind==="r15"?.94:1);camera.position.set(kind==="r15"?4.7:4.5,kind==="r15"?3.15:3.0,kind==="r15"?7.8:7.5);camera.lookAt(0,1.25,0)}};
  $("headStyle").addEventListener("change",()=>window.bloxityR6.update());
  $("faceStyle").addEventListener("change",()=>window.bloxityR6.update());
 })();
@@ -248,3 +249,78 @@ async function purchaseCatalogItem(item){
 }
 
 renderCatalog();
+
+// BLOXITY v0.8: independent navigation pages (single-page app).
+(function initPageNavigation(){
+ const views=[...document.querySelectorAll(".page-view")];
+ const links=[...document.querySelectorAll("[data-page]")];
+ function showPage(page,updateHash=true){
+  const valid=["home","games","avatar","friends","catalog","economy"].includes(page)?page:"home";
+  views.forEach(v=>v.classList.toggle("active",v.dataset.view===valid));
+  links.forEach(a=>a.classList.toggle("active",a.dataset.page===valid));
+  if(updateHash && location.hash!=="#"+valid) history.replaceState(null,"","#"+valid);
+  window.scrollTo({top:0,behavior:"smooth"});
+ }
+ links.forEach(a=>a.addEventListener("click",e=>{
+  const page=a.dataset.page;if(!page)return;
+  e.preventDefault();showPage(page);
+ }));
+ window.addEventListener("hashchange",()=>showPage(location.hash.slice(1),false));
+ showPage(location.hash.slice(1)||"home",false);
+})();
+
+// Games page filters and individual experience preview.
+(function initGamesPage(){
+ const grid=$("gameGrid");if(!grid)return;
+ const search=$("gameSearch"),category=$("gameCategory"),sort=$("gameSort");
+ function filterGames(){
+  const term=(search.value||"").trim().toLowerCase();
+  const cards=[...grid.querySelectorAll(".game-card")];
+  cards.forEach(card=>{
+   const matchesText=card.dataset.name.toLowerCase().includes(term);
+   const matchesCategory=category.value==="all"||card.dataset.category===category.value;
+   card.classList.toggle("hidden",!(matchesText&&matchesCategory));
+  });
+  if(sort.value==="name"){
+   cards.sort((a,b)=>a.dataset.name.localeCompare(b.dataset.name));
+   cards.forEach(card=>grid.append(card));
+  }
+  $("gameEmpty").classList.toggle("hidden",cards.every(c=>c.classList.contains("hidden")));
+ }
+ [search,category,sort].forEach(el=>el.addEventListener("input",filterGames));
+ document.querySelectorAll(".game-open").forEach(btn=>btn.addEventListener("click",()=>{
+  $("gameDialogTitle").textContent=btn.dataset.game;
+  $("gameDialogDescription").textContent="La página de esta experiencia está preparada como vista previa. La ejecución de juegos y los servidores multijugador se implementarán en una fase posterior.";
+  $("gameDialog").showModal();
+ }));
+ $("closeGameDialog").onclick=()=>$("gameDialog").close();
+})();
+
+// Avatar editor category shortcuts.
+(function initAvatarEditorTabs(){
+ document.querySelectorAll("[data-avatar-tab]").forEach(tab=>tab.addEventListener("click",()=>{
+  document.querySelectorAll("[data-avatar-tab]").forEach(t=>t.classList.toggle("active",t===tab));
+  const target=tab.dataset.avatarTab;
+  const categoryMap={recent:"all",clothing:"shirts",body:"faces",accessories:"hats"};
+  if(categoryMap[target]){
+   catalogCategory=categoryMap[target];
+   document.querySelectorAll(".catalog-filter").forEach(b=>b.classList.toggle("active",b.dataset.category===catalogCategory));
+   renderCatalog();
+  }
+  if(target==="animations"){
+   document.querySelector(".animation-controls")?.scrollIntoView({behavior:"smooth",block:"center"});
+  }else if(target==="costumes"){
+   msg("avatarMessage","Los conjuntos guardados se habilitarán en la siguiente fase.",true);
+  }else{
+   msg("avatarMessage","Categoría seleccionada: "+tab.textContent+". Abre Catálogo para explorar los artículos disponibles.",false);
+  }
+ }));
+ document.querySelectorAll(".rig-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".rig-btn").forEach(b=>b.classList.toggle("active",b===btn));
+  const rig=btn.dataset.rig;
+  if(window.bloxityR6?.setRig)window.bloxityR6.setRig(rig);
+  $("avatar3d").dataset.rig=rig;
+  $("avatar3d").setAttribute("aria-label",rig.toUpperCase()+" avatar preview");
+  msg("avatarMessage",rig==="r6"?"Vista R6 clásica seleccionada.":"Vista R15 seleccionada (proporciones preliminares; rig articulado R15 pendiente).");
+ }));
+})();
