@@ -5,28 +5,55 @@
 <title>BLOXITY</title><link rel="icon" href="assets/logo.png"><link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar">
- <a class="brand" href="#home"><img src="assets/logo.png" alt="BLOXITY"><span>BLOXITY</span></a>
+<header class="topbar classic-topbar">
  <button id="menuToggle" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
- <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
- <a href="#home" data-page="home" class="nav-link active" data-i18n="navHome">Inicio</a>
- <a href="#games" data-page="games" class="nav-link" data-i18n="navGames">Juegos</a>
- <a href="#avatar" data-page="avatar" class="nav-link" data-i18n="navAvatar">Avatar</a>
- <a href="#friends" data-page="friends" class="nav-link" data-i18n="navFriends">Amigos</a>
- <a href="#catalog" data-page="catalog" class="nav-link" data-i18n="navCatalog">Catálogo</a>
- <a href="#economy" data-page="economy" class="nav-link">Monedas</a>
- <a href="#buildersclub" data-page="buildersclub" class="nav-link">Builders Club</a>
- <a href="#admin" data-page="admin" class="nav-link hidden" id="adminNav">Admin</a>
+ <a class="brand" href="#home" aria-label="BLOXITY inicio"><img src="assets/logo.png" alt=""><span>BLOXITY</span></a>
+ <nav class="classic-primary-nav" aria-label="Navegación principal">
+  <a href="#games" data-page="games">Juegos</a>
+  <a href="#catalog" data-page="catalog">Catálogo</a>
+  <a href="#avatar" data-page="avatar">Avatar</a>
+  <a href="#economy" data-page="economy">Robux</a>
  </nav>
- <div class="header-actions"><div class="coin-pill robux-pill" title="Robux"><span class="robux-mark">R$</span><strong id="headerRobux">---</strong></div><div class="coin-pill tix-pill" title="Tickets"><span class="tix-mark">🎟</span><strong id="headerTix">---</strong></div><select id="language" aria-label="Language"><option value="es">ES</option><option value="en">EN</option></select>
- <button id="openLogin" class="login" data-i18n="login">Iniciar sesión</button><button id="openRegister" class="signup" data-i18n="signup">Registrarse</button><button id="logout" class="login hidden" data-i18n="logout">Cerrar sesión</button></div>
+ <div class="classic-search"><input id="classicSearch" type="search" placeholder="Buscar" aria-label="Buscar en BLOXITY"><button id="classicSearchButton" type="button" aria-label="Buscar">⌕</button></div>
+ <nav class="main-nav" id="mainNav" aria-label="Más opciones">
+  <a href="#home" data-page="home" class="nav-link active">Inicio</a>
+  <a href="#friends" data-page="friends" class="nav-link">Amigos</a>
+  <a href="#buildersclub" data-page="buildersclub" class="nav-link">Builders Club</a>
+  <a href="#admin" data-page="admin" class="nav-link hidden" id="adminNav">Admin</a>
+ </nav>
+ <div class="header-actions">
+  <span class="header-user" id="headerUser">Invitado</span>
+  <div class="coin-pill robux-pill" title="Robux"><span class="robux-mark">R$</span><strong id="headerRobux">---</strong></div>
+  <div class="coin-pill tix-pill" title="Tickets"><span class="tix-mark">🎟</span><strong id="headerTix">---</strong></div>
+  <select id="language" aria-label="Idioma"><option value="es">ES</option><option value="en">EN</option></select>
+  <button id="openLogin" class="login" data-i18n="login">Iniciar sesión</button><button id="openRegister" class="signup" data-i18n="signup">Registrarse</button><button id="logout" class="login hidden" data-i18n="logout">Cerrar sesión</button>
+ </div>
 </header>
 <main id="home">
- <section class="welcome page-view active" data-view="home"><div><p class="eyebrow" data-i18n="eyebrow">UN MUNDO DE JUEGOS</p><h1 data-i18n="welcome">¡Bienvenido a BLOXITY!</h1><p data-i18n="intro">Descubre juegos, personaliza tu avatar y conoce a otros jugadores.</p><a class="signup large" href="#register" id="heroJoin" data-i18n="join">Únete a BLOXITY</a><p id="accountStatus" class="status" aria-live="polite">No has iniciado sesión.</p></div><div class="welcome-mark"><img src="assets/logo.png" alt=""></div></section>
- <section class="home-shortcuts page-view active" data-view="home">
-  <div class="section-heading"><h2>Descubre BLOXITY</h2><a class="see-all" href="#games" data-page="games">Ver todos</a></div>
-  <p>Explora experiencias, personaliza tu avatar y encuentra artículos clásicos.</p>
-  <div class="shortcut-row"><a href="#games" data-page="games">Juegos <span>›</span></a><a href="#avatar" data-page="avatar">Avatar <span>›</span></a><a href="#catalog" data-page="catalog">Catálogo <span>›</span></a></div>
+ <section class="welcome classic-welcome page-view active" data-view="home">
+  <div class="home-avatar"><img src="assets/logo.png" alt="Avatar BLOXITY"></div>
+  <div class="home-welcome-copy"><p class="eyebrow">BLOXITY · 2017</p><h1 id="homeGreeting">¡Hola, Invitado!</h1><p>¿Qué quieres explorar hoy?</p><p id="accountStatus" class="status" aria-live="polite">No has iniciado sesión.</p><a class="signup large" href="#register" id="heroJoin" data-i18n="join">Únete a BLOXITY</a></div>
+  <div class="home-welcome-side"><div class="home-currency"><span>R$</span><strong id="homeRobux">---</strong></div><div class="home-currency tix"><span>🎟</span><strong id="homeTix">---</strong></div></div>
+ </section>
+ <section class="home-panel page-view active" data-view="home">
+  <div class="classic-section-heading"><h2>Amigos</h2><a href="#friends" data-page="friends">Ver todos</a></div>
+  <div id="homeFriendsStrip" class="home-friends-strip"><p class="empty">Inicia sesión para ver tus amigos.</p></div>
+ </section>
+ <section class="home-panel page-view active" data-view="home">
+  <div class="classic-section-heading"><h2>Jugados recientemente</h2><a href="#games" data-page="games">Ver todos</a></div>
+  <div class="home-game-grid">
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-brick"><span>BRICK</span></div><strong>Brick Battle</strong><small>Experiencia clásica</small></a>
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-city"><span>CITY</span></div><strong>Classic City</strong><small>Construcción</small></a>
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-survival"><span>SURVIVAL</span></div><strong>Survival</strong><small>Supervivencia</small></a>
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-obby"><span>OBBY</span></div><strong>Color Obby</strong><small>Obby</small></a>
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-tycoon"><span>TYCOON</span></div><strong>Classic Tycoon</strong><small>Tycoon</small></a>
+   <a class="home-game-tile" href="#games" data-page="games"><div class="home-game-thumb thumb-island"><span>ISLAND</span></div><strong>Adventure Island</strong><small>Aventura</small></a>
+  </div>
+ </section>
+ <section class="home-panel home-promo page-view active" data-view="home">
+  <div class="classic-section-heading"><h2>Personaliza tu personaje</h2><a href="#catalog" data-page="catalog">Explorar catálogo</a></div>
+  <p>Encuentra sombreros, caras, ropa y accesorios para crear tu propio estilo.</p>
+  <a class="classic-blue-button" href="#avatar" data-page="avatar">Editar avatar</a>
  </section>
 
  <section id="economy" class="section page-view" data-view="economy">
@@ -131,8 +158,10 @@
  </section>
  <section id="catalog" class="section page-view" data-view="catalog">
   <div class="section-heading"><h2 data-i18n="catalogTitle">Catálogo</h2><span id="catalogCount">12 artículos</span></div>
-  <div class="catalog-toolbar"><input id="catalogSearch" type="search" placeholder="Buscar artículos..." aria-label="Buscar artículos"><div id="catalogFilters" class="catalog-filters"><button class="catalog-filter active" data-category="all">Todos</button><button class="catalog-filter" data-category="hats">Sombreros</button><button class="catalog-filter" data-category="hair">Pelo</button><button class="catalog-filter" data-category="faces">Caras</button><button class="catalog-filter" data-category="shirts">Camisetas</button><button class="catalog-filter" data-category="pants">Pantalones</button><button class="catalog-filter" data-category="back">Espalda</button><button class="catalog-filter" data-category="gear">Gear</button></div></div>
-  <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+  <div class="classic-catalog-layout">
+   <aside class="classic-catalog-sidebar"><h3>Categorías</h3><div id="catalogFilters" class="catalog-filters"><button class="catalog-filter active" data-category="all">Ver todos</button><button class="catalog-filter" data-category="hats">Sombreros</button><button class="catalog-filter" data-category="hair">Pelo</button><button class="catalog-filter" data-category="faces">Caras</button><button class="catalog-filter" data-category="shirts">Camisetas</button><button class="catalog-filter" data-category="pants">Pantalones</button><button class="catalog-filter" data-category="back">Accesorios</button><button class="catalog-filter" data-category="gear">Gear</button></div></aside>
+   <div class="classic-catalog-content"><div class="catalog-toolbar"><input id="catalogSearch" type="search" placeholder="Buscar en el catálogo..." aria-label="Buscar artículos"><select id="catalogSort" aria-label="Ordenar catálogo"><option value="featured">Destacados</option><option value="price-low">Precio: menor a mayor</option><option value="price-high">Precio: mayor a menor</option></select></div><div id="catalogGrid" class="catalog-grid" aria-live="polite"></div></div>
+  </div>
   <div class="catalog-equipped"><div><h3 data-i18n="equippedTitle">Artículos equipados</h3><p id="equippedSummary">Todavía no has equipado artículos.</p></div><button id="clearCatalog" class="login dark-login" type="button">Quitar todo</button></div>
   <p id="catalogMessage" class="small-message" aria-live="polite"></p>
   <p class="catalog-footnote">Compra artículos con Robux o Tickets (Tix). Cada saldo es independiente y los artículos comprados quedan en tu inventario.</p>

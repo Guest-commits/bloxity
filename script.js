@@ -8,7 +8,15 @@ function setLang(v){lang=v;document.documentElement.lang=v;document.querySelecto
 $("language").addEventListener("change",e=>setLang(e.target.value));
 const cfg=window.BLOXITY_CONFIG||{};
 if(window.supabase&&cfg.SUPABASE_URL?.startsWith("https://")&&cfg.SUPABASE_ANON_KEY&&!cfg.SUPABASE_ANON_KEY.includes("PASTE_"))client=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
-function updateStatus(){ $("accountStatus").textContent=profile?tr("logged")+" "+profile.username:tr("notLogged");$("openLogin").classList.toggle("hidden",!!profile);$("openRegister").classList.toggle("hidden",!!profile);$("logout").classList.toggle("hidden",!profile);$("heroJoin").classList.toggle("hidden",!!profile);if(!profile){$("incomingList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendsList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendCount").textContent="0"}$("adminNav").classList.toggle("hidden",!platformStatus?.is_admin);}
+function updateStatus(){
+ const status=profile?tr("logged")+" "+profile.username:tr("notLogged");
+ $("accountStatus").textContent=status;
+ $("homeGreeting").textContent=profile?"¡Hola, "+profile.username+"!":"¡Hola, Invitado!";
+ $("headerUser").textContent=profile?profile.username:"Invitado";
+ $("openLogin").classList.toggle("hidden",!!profile);$("openRegister").classList.toggle("hidden",!!profile);$("logout").classList.toggle("hidden",!profile);$("heroJoin").classList.toggle("hidden",!!profile);
+ if(!profile){$("incomingList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendsList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("homeFriendsStrip").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendCount").textContent="0"}
+ $("adminNav").classList.toggle("hidden",!platformStatus?.is_admin);
+}
 function authOpen(m){mode=m;$("authMessage").textContent="";$("dialogTitle").textContent=tr(m);$("submitAuth").textContent=tr(m);$("username").classList.remove("hidden");$("usernameLabel").classList.remove("hidden");$("username").required=true;$("username").value="";$("password").value="";$("authDialog").showModal()}
 $("openLogin").onclick=()=>authOpen("login");$("openRegister").onclick=()=>authOpen("signup");$("heroJoin").onclick=e=>{e.preventDefault();authOpen("signup")};$("closeDialog").onclick=()=>$("authDialog").close();
 function msg(id,s,err=false){$(id).textContent=s;$(id).style.color=err?"#b33":"#18783b"}
@@ -21,7 +29,7 @@ function renderAvatar(){const f=$("avatarFigure");f.style.setProperty("--skin",$
 ["bodyColor","shirtColor","pantsColor"].forEach(id=>$(id).addEventListener("input",renderAvatar));
 $("saveAvatar").onclick=async()=>{if(!client||!profile){msg("avatarMessage",lang==="es"?"Inicia sesión para guardar tu avatar.":"Sign in to save your avatar.",true);return}const values={body_color:$("bodyColor").value,shirt_color:$("shirtColor").value,pants_color:$("pantsColor").value,head_style:$("headStyle").value,face_style:$("faceStyle").value,equipped_items:equippedItems};const {error}=await client.from("profiles").update(values).eq("id",(await client.auth.getUser()).data.user.id);if(error)msg("avatarMessage",error.message,true);else{Object.assign(profile,values);msg("avatarMessage",lang==="es"?"¡Avatar guardado!":"Avatar saved!")}};
 async function loadFriends(){if(!client||!profile)return;const {data:userData}=await client.auth.getUser();const uid=userData.user.id;const {data:requests,error}=await client.from("friend_requests").select("id,sender_id,receiver_id,status,sender:profiles!friend_requests_sender_id_fkey(username),receiver:profiles!friend_requests_receiver_id_fkey(username)").or(`sender_id.eq.${uid},receiver_id.eq.${uid}`);if(error){msg("friendMessage",error.message,true);return}const incoming=(requests||[]).filter(r=>r.receiver_id===uid&&r.status==="pending"),friends=(requests||[]).filter(r=>r.status==="accepted");$("incomingList").innerHTML=incoming.length?"":`<p class="empty">${lang==="es"?"No tienes solicitudes nuevas.":"No new requests."}</p>`;for(const r of incoming){const row=document.createElement("div");row.className="friend-item";const name=document.createElement("strong");name.textContent=r.sender?.username||"Player";const actions=document.createElement("div");actions.className="friend-actions";const yes=document.createElement("button");yes.className="accept";yes.textContent=lang==="es"?"Aceptar":"Accept";yes.onclick=()=>respond(r.id,"accepted");const no=document.createElement("button");no.textContent=lang==="es"?"Rechazar":"Decline";no.onclick=()=>respond(r.id,"rejected");actions.append(yes,no);row.append(name,actions);$("incomingList").append(row)}
-const unique=new Map();friends.forEach(r=>{const other=r.sender_id===uid?r.receiver:r.sender;if(other)unique.set(r.id,other.username)});$("friendCount").textContent=String(unique.size);$("friendsList").innerHTML=unique.size?"":`<p class="empty">${lang==="es"?"Todavía no tienes amigos.":"You don't have friends yet."}</p>`;unique.forEach(name=>{const row=document.createElement("div");row.className="friend-item";const n=document.createElement("strong");n.textContent=name;row.append(n);$("friendsList").append(row)})}
+const unique=new Map();friends.forEach(r=>{const other=r.sender_id===uid?r.receiver:r.sender;if(other)unique.set(r.id,other.username)});$("friendCount").textContent=String(unique.size);$("friendsList").innerHTML=unique.size?"":`<p class="empty">${lang==="es"?"Todavía no tienes amigos.":"You don't have friends yet."}</p>`;$("homeFriendsStrip").innerHTML=unique.size?"":`<p class="empty">${lang==="es"?"Todavía no tienes amigos. Agrega jugadores para verlos aquí.":"No friends yet. Add players to see them here."}</p>`;unique.forEach(name=>{const row=document.createElement("div");row.className="friend-item";const n=document.createElement("strong");n.textContent=name;row.append(n);$("friendsList").append(row);const chip=document.createElement("div");chip.className="home-friend";const avatar=document.createElement("span");avatar.className="home-friend-avatar";avatar.textContent="♟";const label=document.createElement("span");label.className="home-friend-name";label.textContent=name;chip.append(avatar,label);$("homeFriendsStrip").append(chip)})}
 async function respond(id,status){const {error}=await client.from("friend_requests").update({status}).eq("id",id);if(error)msg("friendMessage",error.message,true);else{msg("friendMessage",status==="accepted"?(lang==="es"?"Solicitud aceptada.":"Request accepted."):(lang==="es"?"Solicitud rechazada.":"Request declined."));loadFriends()}}
 $("sendRequest").onclick=async()=>{if(!client||!profile){msg("friendMessage",lang==="es"?"Inicia sesión para agregar amigos.":"Sign in to add friends.",true);return}const username=$("friendUsername").value.trim();if(!username){msg("friendMessage",lang==="es"?"Escribe un nombre de usuario.":"Enter a username.",true);return}const {data:me}=await client.auth.getUser();const {data:target,error:findError}=await client.from("profiles").select("id,username").ilike("username",username).maybeSingle();if(findError||!target){msg("friendMessage",lang==="es"?"No encontramos ese jugador.":"Player not found.",true);return}if(target.id===me.user.id){msg("friendMessage",lang==="es"?"No puedes agregarte a ti mismo.":"You cannot add yourself.",true);return}const {error}=await client.from("friend_requests").insert({sender_id:me.user.id,receiver_id:target.id});if(error)msg("friendMessage",error.code==="23505"?(lang==="es"?"Ya existe una solicitud o amistad.":"A request or friendship already exists."):error.message,true);else{msg("friendMessage",lang==="es"?"Solicitud enviada.":"Friend request sent.");$("friendUsername").value=""}};
 if(client){client.auth.getSession().then(({data})=>{if(data.session)loadProfile(data.session.user)});client.auth.onAuthStateChange((_e,s)=>{if(!s){profile=null;updateStatus();loadEconomy()}else loadProfile(s.user)})}
@@ -145,7 +153,7 @@ let ownedItems=new Set();
 function renderCatalog(){
  const grid=$("catalogGrid");if(!grid)return;
  const term=$("catalogSearch").value.trim().toLowerCase();
- const items=catalogItems.filter(i=>(catalogCategory==="all"||i.category===catalogCategory)&&i.name.toLowerCase().includes(term));
+ let items=catalogItems.filter(i=>(catalogCategory==="all"||i.category===catalogCategory)&&i.name.toLowerCase().includes(term));const sort=$("catalogSort")?.value||"featured";if(sort==="price-low")items.sort((a,b)=>a.price-b.price);else if(sort==="price-high")items.sort((a,b)=>b.price-a.price);
  $("catalogCount").textContent=`${items.length} ${lang==="es"?"artículos":"items"}`;
  grid.innerHTML="";
  if(!items.length){grid.innerHTML=`<p class="empty">${lang==="es"?"No hay artículos con esa búsqueda.":"No items match your search."}</p>`;return}
@@ -178,6 +186,10 @@ function updateEquippedSummary(){
  $("equippedSummary").textContent=names.length?names.join(" · "):(lang==="es"?"Todavía no has equipado artículos.":"No items equipped yet.");
 }
 $("catalogSearch").addEventListener("input",renderCatalog);
+$("catalogSort")?.addEventListener("change",renderCatalog);
+function runClassicSearch(){const term=$("classicSearch").value.trim();if(!term)return;$("gameSearch").value=term;$("gameSearch").dispatchEvent(new Event("input",{bubbles:true}));const gameMatch=[...document.querySelectorAll(".game-card")].some(card=>card.dataset.name.toLowerCase().includes(term.toLowerCase()));if(gameMatch){document.querySelector('[data-page="games"]')?.click()}else{$("catalogSearch").value=term;renderCatalog();document.querySelector('[data-page="catalog"]')?.click()}}
+$("classicSearchButton")?.addEventListener("click",runClassicSearch);
+$("classicSearch")?.addEventListener("keydown",e=>{if(e.key==="Enter")runClassicSearch()});
 document.querySelectorAll(".catalog-filter").forEach(b=>b.addEventListener("click",()=>{catalogCategory=b.dataset.category;document.querySelectorAll(".catalog-filter").forEach(x=>x.classList.toggle("active",x===b));renderCatalog()}));
 $("clearCatalog").addEventListener("click",()=>{equippedItems=[];if(window.bloxityR6)window.bloxityR6.setEquipped(equippedItems);renderCatalog();msg("catalogMessage",lang==="es"?"Has quitado todos los artículos.":"All items removed.")});
 
@@ -186,7 +198,7 @@ function formatCoins(value){return Number(value||0).toLocaleString(lang==="es"?"
 function showCurrencyBalances(robux,tix){
  const r=robux==="---"?"---":formatCoins(robux),t=tix==="---"?"---":formatCoins(tix);
  $("robuxBalance").textContent=r;$("tixBalance").textContent=t;
- $("headerRobux").textContent=r;$("headerTix").textContent=t;
+ $("headerRobux").textContent=r;$("headerTix").textContent=t;$("homeRobux").textContent=r;$("homeTix").textContent=t;
 }
 function transactionLabel(type){
  const labels={starter_bonus:"Bono inicial",daily_reward:"Recompensa diaria",purchase:"Compra de artículo",builders_club_daily:"Builders Club: recompensa diaria",admin_grant:"Ajuste administrativo"};
