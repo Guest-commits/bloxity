@@ -2,13 +2,13 @@ const translations={
 es:{navHome:"Inicio",navGames:"Juegos",navAvatar:"Avatar",navFriends:"Amigos",navCatalog:"Catálogo",login:"Iniciar sesión",signup:"Registrarse",logout:"Cerrar sesión",eyebrow:"UN MUNDO DE JUEGOS",welcome:"¡Bienvenido a BLOXITY!",intro:"Descubre juegos, personaliza tu avatar y conoce a otros jugadores.",join:"Únete a BLOXITY",avatarTitle:"Mi avatar R6",classicAvatar:"Clásico · 6 partes",avatarHelp:"Personaliza los colores de tu avatar. Inicia sesión para guardar los cambios.",bodyColor:"Color de cabeza y brazos",shirtColor:"Color de camiseta",pantsColor:"Color de pantalones",saveAvatar:"Guardar avatar",friendsTitle:"Mis amigos",findPlayer:"Buscar jugador por nombre",addFriend:"Agregar amigo",incoming:"Solicitudes recibidas",myFriends:"Amigos",loginFriends:"Inicia sesión para ver tus amigos y solicitudes.",featured:"Juegos destacados",coming:"Próximamente",gameSoon:"Próximamente",catalogTitle:"Catálogo",catalogText:"Pronto podrás descubrir artículos para personalizar tu avatar.",footer:"Plataforma independiente inspirada en la estética de los juegos de 2017.",username:"Nombre de usuario",password:"Contraseña",privacy:"Usa una contraseña única. Nunca compartas tu contraseña con nadie.",notLogged:"No has iniciado sesión.",logged:"Sesión iniciada como"},
 en:{navHome:"Home",navGames:"Games",navAvatar:"Avatar",navFriends:"Friends",navCatalog:"Catalog",login:"Log in",signup:"Sign up",logout:"Log out",eyebrow:"A WORLD OF GAMES",welcome:"Welcome to BLOXITY!",intro:"Discover games, customize your avatar, and meet other players.",join:"Join BLOXITY",avatarTitle:"My R6 avatar",classicAvatar:"Classic · 6 parts",avatarHelp:"Customize your avatar colors. Sign in to save your changes.",bodyColor:"Head and arms color",shirtColor:"Shirt color",pantsColor:"Pants color",saveAvatar:"Save avatar",friendsTitle:"My friends",findPlayer:"Find player by username",addFriend:"Add friend",incoming:"Incoming requests",myFriends:"Friends",loginFriends:"Sign in to see your friends and requests.",featured:"Featured games",coming:"Coming soon",gameSoon:"Coming soon",catalogTitle:"Catalog",catalogText:"Soon you'll be able to discover items to customize your avatar.",footer:"Independent platform inspired by the look and feel of 2017 games.",username:"Username",password:"Password",privacy:"Use a unique password. Never share your password with anyone.",notLogged:"You are not logged in.",logged:"Signed in as"}
 };
-let lang="es",mode="login",client=null,profile=null;
+let lang="es",mode="login",client=null,profile=null,platformStatus=null;
 const $=id=>document.getElementById(id), tr=k=>translations[lang][k]||k;
 function setLang(v){lang=v;document.documentElement.lang=v;document.querySelectorAll("[data-i18n]").forEach(e=>{if(translations[v][e.dataset.i18n])e.textContent=tr(e.dataset.i18n)});updateStatus()}
 $("language").addEventListener("change",e=>setLang(e.target.value));
 const cfg=window.BLOXITY_CONFIG||{};
 if(window.supabase&&cfg.SUPABASE_URL?.startsWith("https://")&&cfg.SUPABASE_ANON_KEY&&!cfg.SUPABASE_ANON_KEY.includes("PASTE_"))client=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
-function updateStatus(){ $("accountStatus").textContent=profile?tr("logged")+" "+profile.username:tr("notLogged");$("openLogin").classList.toggle("hidden",!!profile);$("openRegister").classList.toggle("hidden",!!profile);$("logout").classList.toggle("hidden",!profile);$("heroJoin").classList.toggle("hidden",!!profile);if(!profile){$("incomingList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendsList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendCount").textContent="0"}}
+function updateStatus(){ $("accountStatus").textContent=profile?tr("logged")+" "+profile.username:tr("notLogged");$("openLogin").classList.toggle("hidden",!!profile);$("openRegister").classList.toggle("hidden",!!profile);$("logout").classList.toggle("hidden",!profile);$("heroJoin").classList.toggle("hidden",!!profile);if(!profile){$("incomingList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendsList").innerHTML=`<p class="empty">${tr("loginFriends")}</p>`;$("friendCount").textContent="0"}$("adminNav").classList.toggle("hidden",!platformStatus?.is_admin);}
 function authOpen(m){mode=m;$("authMessage").textContent="";$("dialogTitle").textContent=tr(m);$("submitAuth").textContent=tr(m);$("username").classList.remove("hidden");$("usernameLabel").classList.remove("hidden");$("username").required=true;$("username").value="";$("password").value="";$("authDialog").showModal()}
 $("openLogin").onclick=()=>authOpen("login");$("openRegister").onclick=()=>authOpen("signup");$("heroJoin").onclick=e=>{e.preventDefault();authOpen("signup")};$("closeDialog").onclick=()=>$("authDialog").close();
 function msg(id,s,err=false){$(id).textContent=s;$(id).style.color=err?"#b33":"#18783b"}
@@ -131,7 +131,14 @@ const catalogItems=[
 {id:"shirt_green",name:"Camiseta verde",category:"shirts",icon:"👕",price:75,kind:"shirt",color:"#35a56b"},
 {id:"pants_blue",name:"Pantalones azules",category:"pants",icon:"👖",price:90,kind:"pants",color:"#2859a8"},
 {id:"backpack",name:"Mochila aventurera",category:"back",icon:"🎒",price:350,kind:"backpack",color:"#a85a32"},
-{id:"wings",name:"Alas celestes",category:"back",icon:"🪽",price:900,kind:"wings",color:"#8bd7f5"}
+{id:"wings",name:"Alas celestes",category:"back",icon:"🪽",price:900,kind:"wings",color:"#8bd7f5"},
+{id:"gear_gravity_coil",name:"Gravity Coil",category:"gear",icon:"🌀",price:250,currency:"tix",kind:"gear"},
+{id:"gear_speed_coil",name:"Speed Coil",category:"gear",icon:"⚡",price:200,currency:"tix",kind:"gear"},
+{id:"gear_paint_bucket",name:"Paint Bucket",category:"gear",icon:"🪣",price:100,currency:"tix",kind:"gear"},
+{id:"gear_bloxy_radio",name:"Classic Radio",category:"gear",icon:"📻",price:150,currency:"tix",kind:"gear"},
+{id:"bc_hat_classic",name:"Sombrero Builders Club",category:"hats",icon:"🎩",price:0,kind:"hat"},
+{id:"bc_hat_turbo",name:"Sombrero Turbo Builders Club",category:"hats",icon:"🎩",price:0,kind:"hat"},
+{id:"bc_hat_outage",name:"Sombrero Outrageous Builders Club",category:"hats",icon:"🎩",price:0,kind:"hat"}
 ];
 let catalogCategory="all";
 let ownedItems=new Set();
@@ -146,7 +153,7 @@ function renderCatalog(){
   const card=document.createElement("article");card.className="catalog-item";
   const art=document.createElement("div");art.className="catalog-art";const emoji=document.createElement("span");emoji.textContent=item.icon;art.append(emoji);
   const name=document.createElement("h3");name.textContent=item.name;
-  const price=document.createElement("div");price.className="catalog-price";price.textContent=`◇ ${Number(item.price).toLocaleString(lang==="es"?"es-GT":"en-US")} BloxCoins`;
+  const price=document.createElement("div");price.className="catalog-price";price.textContent=`${item.currency==="tix"?"🎟️":item.currency==="robux"?"R$":"◇"} ${Number(item.price).toLocaleString(lang==="es"?"es-GT":"en-US")} ${item.currency==="tix"?"Tix":item.currency==="robux"?"Robux":"BloxCoins"}`;
   const btn=document.createElement("button");
   const owned=ownedItems.has(item.id),isOn=equippedItems.includes(item.id);
   btn.className=owned?"owned-item":"buy-item";
@@ -182,26 +189,29 @@ function showBalance(value){
  $("headerCoins").textContent=formatted;
 }
 function transactionLabel(type){
- const labels={starter_bonus:"Bono inicial",daily_reward:"Recompensa diaria",purchase:"Compra de artículo"};
+ const labels={starter_bonus:"Bono inicial",daily_reward:"Recompensa diaria",purchase:"Compra de artículo",builders_club_daily:"Builders Club: recompensa diaria",admin_grant:"Ajuste administrativo"};
  return labels[type]||(type||"Movimiento");
 }
 async function loadEconomy(){
  if(!client||!profile){
+  platformStatus=null;updateStatus();
   showBalance("---");$("walletStatus").textContent="Inicia sesión para consultar tu saldo.";
-  $("claimDaily").disabled=true;$("dailyStatus").textContent="";
+  $("claimDaily").disabled=true;$("claimTixDaily").disabled=true;$("claimBcDaily").disabled=true;$("dailyStatus").textContent="";$("tixDailyStatus").textContent="";$("bcStatus").textContent="Inicia sesión y elige un nivel para activar tu recompensa.";
   $("transactionList").innerHTML='<p class="empty">Inicia sesión para ver tus movimientos.</p>';
   ownedItems=new Set();renderCatalog();return;
  }
  const {data:userData,error:userError}=await client.auth.getUser();
  if(userError||!userData.user)return;
  const uid=userData.user.id;
- const [wallet,inventory,transactions]=await Promise.all([
-  client.from("profiles").select("coin_balance,last_daily_claim_at").eq("id",uid).single(),
+ const [wallet,inventory,transactions,status,currencyTransactions]=await Promise.all([
+  client.from("profiles").select("coin_balance,last_daily_claim_at,robux_balance,tix_balance,bc_tier,bc_daily_claim_at,player_id,tix_daily_claim_at").eq("id",uid).single(),
   client.from("user_inventory").select("item_id").eq("user_id",uid),
-  client.from("wallet_transactions").select("transaction_type,amount,balance_after,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(10)
+  client.from("wallet_transactions").select("transaction_type,amount,balance_after,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(10),
+  client.rpc("get_my_platform_status"),
+  client.from("currency_transactions").select("currency,amount,balance_after,transaction_type,description,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(10)
  ]);
  if(wallet.error){$("walletStatus").textContent="Ejecuta la migración v0.7 de Supabase.";msg("dailyStatus",wallet.error.message,true);return}
- showBalance(wallet.data.coin_balance);$("walletStatus").textContent="Tu saldo está guardado en tu cuenta.";
+ showBalance(wallet.data.coin_balance);$("robuxBalance").textContent=formatCoins(wallet.data.robux_balance);$("tixBalance").textContent=formatCoins(wallet.data.tix_balance);$("walletStatus").textContent=`ID de jugador: ${wallet.data.player_id} · Tu saldo está guardado en tu cuenta.`;platformStatus=status.data||null;updateStatus();updateBcPanel(wallet.data);
  ownedItems=new Set((inventory.data||[]).map(x=>x.item_id));
  renderCatalog();
  if(inventory.error)msg("catalogMessage",inventory.error.message,true);
@@ -218,7 +228,14 @@ async function loadEconomy(){
  });
  if(!(transactions.data||[]).length)list.innerHTML='<p class="empty">Todavía no hay movimientos.</p>';
  if(transactions.error)list.innerHTML='<p class="empty">No se pudo cargar el historial.</p>';
- updateDailyButton(wallet.data.last_daily_claim_at);
+ (currencyTransactions.data||[]).forEach(t=>{
+  const row=document.createElement("div");row.className="transaction-row";
+  const info=document.createElement("div");info.className="transaction-info";
+  const label=document.createElement("strong");label.textContent=(t.currency==="robux"?"Robux":"Tix")+" · "+(t.description||transactionLabel(t.transaction_type));
+  const date=document.createElement("span");date.textContent=new Date(t.created_at).toLocaleString(lang==="es"?"es-GT":"en-US",{dateStyle:"short",timeStyle:"short"});info.append(label,date);
+  const amount=document.createElement("span");amount.className="transaction-amount "+(Number(t.amount)>=0?"positive":"negative");amount.textContent=(Number(t.amount)>0?"+":"")+formatCoins(t.amount)+" "+(t.currency==="robux"?"R$":"Tix");row.append(info,amount);list.append(row);
+ });
+ updateDailyButton(wallet.data.last_daily_claim_at);updateTixDailyButton(wallet.data.tix_daily_claim_at);
 }
 function updateDailyButton(lastClaim){
  const button=$("claimDaily");
@@ -239,14 +256,41 @@ $("claimDaily").addEventListener("click",async()=>{
  msg("dailyStatus","¡Reclamaste +100 BloxCoins!");
  await loadEconomy();
 });
+
+function updateTixDailyButton(lastClaim){const b=$("claimTixDaily");if(!profile||!client){b.disabled=true;return}const remaining=lastClaim?new Date(lastClaim).getTime()+86400000-Date.now():0;b.disabled=remaining>0;if(remaining>0){const h=Math.floor(remaining/3600000),m=Math.floor(remaining%3600000/60000);$("tixDailyStatus").textContent=`Próxima recompensa de Tix en ${h} h ${m} min.`}else $("tixDailyStatus").textContent="Puedes reclamar 10 Tix hoy."}
+$("claimTixDaily").addEventListener("click",async()=>{if(!client||!profile)return;$("claimTixDaily").disabled=true;const {data,error}=await client.rpc("claim_tix_daily_reward");if(error){msg("tixDailyStatus",error.message,true);$("claimTixDaily").disabled=false;return}msg("tixDailyStatus",data.message,!data.ok);await loadEconomy()});
+
 async function purchaseCatalogItem(item){
  if(!client||!profile){msg("catalogMessage","Inicia sesión para comprar artículos.",true);return}
  const {data,error}=await client.rpc("purchase_catalog_item",{p_item_id:item.id});
  if(error){msg("catalogMessage",error.message,true);return}
  if(!data.ok){msg("catalogMessage",data.message||"No se pudo completar la compra.",true);return}
- msg("catalogMessage",`¡Compraste ${item.name} por ${formatCoins(data.price)} BloxCoins!`);
+ msg("catalogMessage",`¡Compraste ${item.name} por ${formatCoins(data.price)} ${data.currency==="tix"?"Tix":data.currency==="robux"?"Robux":"BloxCoins"}!`);
  await loadEconomy();
 }
+
+
+function updateBcPanel(data){
+ const names={none:"Sin Builders Club",builders_club:"Builders Club",turbo_builders_club:"Turbo Builders Club",outrageous_builders_club:"Outrageous Builders Club"};
+ $("bcStatus").textContent=names[data.bc_tier]||"Sin Builders Club";
+ const chosen=data.bc_tier&&data.bc_tier!=="none";
+ document.querySelectorAll(".bc-choose").forEach(b=>{b.disabled=!!chosen;b.textContent=chosen?(b.dataset.tier===data.bc_tier?"Nivel activo":"No disponible"):"Elegir nivel"});
+ const last=data.bc_daily_claim_at,remaining=last?new Date(last).getTime()+86400000-Date.now():0;
+ $("claimBcDaily").disabled=!chosen||remaining>0;
+ if(chosen&&remaining>0){const h=Math.floor(remaining/3600000),m=Math.floor(remaining%3600000/60000);$("bcStatus").textContent+=` · Próxima recompensa en ${h} h ${m} min.`}
+ else if(chosen)$("bcStatus").textContent+=" · Recompensa disponible: 85 Robux.";
+}
+document.querySelectorAll(".bc-choose").forEach(b=>b.addEventListener("click",async()=>{
+ if(!client||!profile){msg("bcMessage","Inicia sesión para elegir Builders Club.",true);return}
+ b.disabled=true;const {data,error}=await client.rpc("choose_builders_club_tier",{p_tier:b.dataset.tier});
+ if(error){msg("bcMessage",error.message,true);b.disabled=false;return}msg("bcMessage",data.message,!data.ok);await loadEconomy();
+}));
+$("claimBcDaily").addEventListener("click",async()=>{if(!client||!profile)return;$("claimBcDaily").disabled=true;const {data,error}=await client.rpc("claim_builders_club_daily_reward");if(error){msg("bcMessage",error.message,true);$("claimBcDaily").disabled=false;return}msg("bcMessage",data.message,!data.ok);await loadEconomy()});
+async function adminCall(fn,args,messageId){if(!client||!profile){msg(messageId,"Inicia sesión.",true);return null}const {data,error}=await client.rpc(fn,args);if(error){msg(messageId,error.message,true);return null}msg(messageId,data.message||"Operación completada.",data.ok===false);return data}
+$("grantAdmin").onclick=async()=>{if(platformStatus?.player_id!==1){msg("adminRoleMessage","Solo el ID 1 puede otorgar administradores.",true);return}const id=Number($("adminPlayerId").value);if(!Number.isSafeInteger(id)||id<1){msg("adminRoleMessage","Escribe un ID válido.",true);return}await adminCall("admin_grant_admin",{p_player_id:id},"adminRoleMessage")};
+$("revokeAdmin").onclick=async()=>{if(platformStatus?.player_id!==1){msg("adminRoleMessage","Solo el ID 1 puede retirar administradores.",true);return}const id=Number($("adminPlayerId").value);if(!Number.isSafeInteger(id)||id<1){msg("adminRoleMessage","Escribe un ID válido.",true);return}await adminCall("admin_revoke_admin",{p_player_id:id},"adminRoleMessage")};
+$("lookupPlayer").onclick=async()=>{const id=Number($("lookupPlayerId").value);if(!Number.isSafeInteger(id)||id<1){$("lookupResult").textContent="ID no válido.";return}const data=await adminCall("admin_lookup_player",{p_player_id:id},"adminRoleMessage");if(data)$("lookupResult").textContent=JSON.stringify(data,null,2)};
+$("grantCurrencyButton").onclick=async()=>{const id=Number($("currencyPlayerId").value),amount=Number($("grantAmount").value);if(!Number.isSafeInteger(id)||id<1||!Number.isSafeInteger(amount)||amount<1){msg("adminCurrencyMessage","Revisa el ID y la cantidad.",true);return}await adminCall("admin_grant_currency",{p_player_id:id,p_currency:$("grantCurrency").value,p_amount:amount,p_reason:$("grantReason").value||"Ajuste administrativo"},"adminCurrencyMessage")};
 
 renderCatalog();
 
@@ -255,7 +299,8 @@ renderCatalog();
  const views=[...document.querySelectorAll(".page-view")];
  const links=[...document.querySelectorAll("[data-page]")];
  function showPage(page,updateHash=true){
-  const valid=["home","games","avatar","friends","catalog","economy"].includes(page)?page:"home";
+  let valid=["home","games","avatar","friends","catalog","economy","buildersclub","admin"].includes(page)?page:"home";
+  if(valid==="admin"&&!platformStatus?.is_admin)valid="home";
   views.forEach(v=>v.classList.toggle("active",v.dataset.view===valid));
   links.forEach(a=>a.classList.toggle("active",a.dataset.page===valid));
   if(updateHash && location.hash!=="#"+valid) history.replaceState(null,"","#"+valid);

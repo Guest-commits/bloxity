@@ -13,7 +13,9 @@
  <a href="#avatar" data-page="avatar" class="nav-link" data-i18n="navAvatar">Avatar</a>
  <a href="#friends" data-page="friends" class="nav-link" data-i18n="navFriends">Amigos</a>
  <a href="#catalog" data-page="catalog" class="nav-link" data-i18n="navCatalog">Catálogo</a>
- <a href="#economy" data-page="economy" class="nav-link">BloxCoins</a>
+ <a href="#economy" data-page="economy" class="nav-link">Monedas</a>
+ <a href="#buildersclub" data-page="buildersclub" class="nav-link">Builders Club</a>
+ <a href="#admin" data-page="admin" class="nav-link hidden" id="adminNav">Admin</a>
  </nav>
  <div class="header-actions"><div class="coin-pill" title="BloxCoins"><span class="coin-mark">◇</span><strong id="headerCoins">---</strong></div><select id="language" aria-label="Language"><option value="es">ES</option><option value="en">EN</option></select>
  <button id="openLogin" class="login" data-i18n="login">Iniciar sesión</button><button id="openRegister" class="signup" data-i18n="signup">Registrarse</button><button id="logout" class="login hidden" data-i18n="logout">Cerrar sesión</button></div>
@@ -31,9 +33,11 @@
   <div class="wallet-layout">
    <div class="wallet-card">
     <div class="wallet-top"><span>MI SALDO</span><span class="wallet-symbol">◇</span></div>
-    <div class="wallet-balance"><strong id="coinBalance">---</strong><span>BloxCoins</span></div>
+    <div class="currency-balances"><div><strong id="robuxBalance">0</strong><span>Robux</span></div><div><strong id="tixBalance">0</strong><span>Tix</span></div><div><strong id="coinBalance">---</strong><span>BloxCoins</span></div></div>
     <p id="walletStatus">Inicia sesión para consultar tu saldo.</p>
-    <button id="claimDaily" class="primary" type="button" disabled>🎁 Recompensa diaria +100</button>
+    <button id="claimDaily" class="primary" type="button" disabled>🎁 Recompensa diaria +100 BloxCoins</button>
+    <button id="claimTixDaily" class="login" type="button" disabled>🎟️ Reclamar +10 Tix</button>
+    <p id="tixDailyStatus" class="small-message" aria-live="polite"></p>
     <p id="dailyStatus" class="small-message" aria-live="polite"></p>
    </div>
    <div class="transactions-card">
@@ -43,6 +47,26 @@
   </div>
  </section>
 
+ <section id="buildersclub" class="section page-view" data-view="buildersclub">
+  <div class="section-heading"><h2>Builders Club</h2><span>MEMBRESÍA GRATUITA</span></div>
+  <p class="bc-intro">Elige uno de los tres niveles clásicos. No hay cobros ni renovación: cada cuenta puede seleccionar un nivel una sola vez.</p>
+  <div class="bc-grid">
+   <article class="bc-card"><div class="bc-hat classic-hat">♟</div><h3>Builders Club</h3><p>85 Robux diarios</p><p>Sombrero clásico de Builders Club</p><button class="primary bc-choose" data-tier="builders_club">Elegir nivel</button></article>
+   <article class="bc-card"><div class="bc-hat turbo-hat">♟</div><h3>Turbo Builders Club</h3><p>85 Robux diarios</p><p>Sombrero Turbo Builders Club</p><button class="primary bc-choose" data-tier="turbo_builders_club">Elegir nivel</button></article>
+   <article class="bc-card"><div class="bc-hat outrage-hat">♟</div><h3>Outrageous Builders Club</h3><p>85 Robux diarios</p><p>Sombrero Outrageous Builders Club</p><button class="primary bc-choose" data-tier="outrageous_builders_club">Elegir nivel</button></article>
+  </div>
+  <div class="bc-reward"><div><strong>Recompensa diaria</strong><p id="bcStatus">Inicia sesión y elige un nivel para activar tu recompensa.</p></div><button id="claimBcDaily" class="primary" disabled>Reclamar 85 Robux</button></div>
+  <p id="bcMessage" class="small-message" aria-live="polite"></p>
+ </section>
+ <section id="admin" class="section page-view" data-view="admin">
+  <div class="section-heading"><h2>Panel de administración</h2><span>SOLO PERSONAL AUTORIZADO</span></div>
+  <p class="admin-note">El ID 1 es el propietario principal. Solo el ID 1 puede otorgar o retirar permisos de administrador. Los demás administradores pueden gestionar saldos.</p>
+  <div class="admin-grid">
+   <div class="admin-card"><h3>Permisos de administrador</h3><label for="adminPlayerId">ID del jugador</label><input id="adminPlayerId" type="number" min="1" placeholder="Ej. 25"><div class="admin-actions"><button id="grantAdmin" class="primary">Dar Admin</button><button id="revokeAdmin" class="login">Quitar Admin</button></div><p id="adminRoleMessage" class="small-message"></p></div>
+   <div class="admin-card"><h3>Consultar jugador</h3><label for="lookupPlayerId">ID del jugador</label><input id="lookupPlayerId" type="number" min="1" placeholder="Ej. 25"><button id="lookupPlayer" class="primary">Buscar</button><pre id="lookupResult" class="admin-result">Sin búsqueda.</pre></div>
+   <div class="admin-card"><h3>Otorgar moneda</h3><label for="currencyPlayerId">ID del jugador</label><input id="currencyPlayerId" type="number" min="1" placeholder="Ej. 25"><label for="grantCurrency">Moneda</label><select id="grantCurrency"><option value="robux">Robux</option><option value="tix">Tix</option></select><label for="grantAmount">Cantidad</label><input id="grantAmount" type="number" min="1" max="1000000" placeholder="Cantidad"><label for="grantReason">Motivo</label><input id="grantReason" maxlength="120" placeholder="Motivo del ajuste"><button id="grantCurrencyButton" class="primary">Otorgar</button><p id="adminCurrencyMessage" class="small-message"></p></div>
+  </div>
+ </section>
  <section id="avatar" class="section page-view" data-view="avatar">
   <div class="section-heading"><h2 data-i18n="avatarTitle">Editor de avatar</h2><span data-i18n="classicAvatar">R6 / R15</span></div>
   <div class="avatar-toolbar">
@@ -108,7 +132,7 @@
  </section>
  <section id="catalog" class="section page-view" data-view="catalog">
   <div class="section-heading"><h2 data-i18n="catalogTitle">Catálogo</h2><span id="catalogCount">12 artículos</span></div>
-  <div class="catalog-toolbar"><input id="catalogSearch" type="search" placeholder="Buscar artículos..." aria-label="Buscar artículos"><div id="catalogFilters" class="catalog-filters"><button class="catalog-filter active" data-category="all">Todos</button><button class="catalog-filter" data-category="hats">Sombreros</button><button class="catalog-filter" data-category="hair">Pelo</button><button class="catalog-filter" data-category="faces">Caras</button><button class="catalog-filter" data-category="shirts">Camisetas</button><button class="catalog-filter" data-category="pants">Pantalones</button><button class="catalog-filter" data-category="back">Espalda</button></div></div>
+  <div class="catalog-toolbar"><input id="catalogSearch" type="search" placeholder="Buscar artículos..." aria-label="Buscar artículos"><div id="catalogFilters" class="catalog-filters"><button class="catalog-filter active" data-category="all">Todos</button><button class="catalog-filter" data-category="hats">Sombreros</button><button class="catalog-filter" data-category="hair">Pelo</button><button class="catalog-filter" data-category="faces">Caras</button><button class="catalog-filter" data-category="shirts">Camisetas</button><button class="catalog-filter" data-category="pants">Pantalones</button><button class="catalog-filter" data-category="back">Espalda</button><button class="catalog-filter" data-category="gear">Gear</button></div></div>
   <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
   <div class="catalog-equipped"><div><h3 data-i18n="equippedTitle">Artículos equipados</h3><p id="equippedSummary">Todavía no has equipado artículos.</p></div><button id="clearCatalog" class="login dark-login" type="button">Quitar todo</button></div>
   <p id="catalogMessage" class="small-message" aria-live="polite"></p>
@@ -120,6 +144,6 @@
 <label id="usernameLabel" for="username" data-i18n="username">Nombre de usuario</label><input id="username" autocomplete="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" required placeholder="Jugador123">
 <label for="password" data-i18n="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required minlength="8" maxlength="72" placeholder="••••••••">
 <p id="authMessage" class="auth-message" role="status"></p><button id="submitAuth" class="signup submit" type="submit">Iniciar sesión</button></form><p class="privacy" data-i18n="privacy">Usa una contraseña única. Nunca compartas tu contraseña con nadie.</p></dialog>
-<footer><span>© 2026 BLOXITY · v0.8</span><span data-i18n="footer">Plataforma independiente inspirada en la estética de los juegos de 2017.</span></footer>
+<footer><span>© 2026 BLOXITY · Revival</span><span data-i18n="footer">Plataforma independiente inspirada en la estética de los juegos de 2017.</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script><script src="config.js"></script><script src="script.js"></script>
 </body></html>

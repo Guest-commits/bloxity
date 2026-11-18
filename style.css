@@ -187,3 +187,17 @@ body{background:#e5e5e5;color:#333;font-family:Arial,Helvetica,sans-serif}
 button,input,select{font-family:Arial,Helvetica,sans-serif}
 @media(max-width:800px){.topbar{padding:7px 10px}.welcome{margin:12px 10px 0;padding:16px}.welcome h1{font-size:23px}.welcome-mark img{width:76px;height:76px}.home-shortcuts{margin:12px 10px;padding:12px}.section{margin:16px 10px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.game-art{aspect-ratio:1.05;font-size:43px}.game-info{padding:7px}.game-info h3{font-size:13px}.game-open{padding:7px 4px}.games-toolbar{gap:8px;padding:8px}}
 @media(max-width:430px){.brand{font-size:19px}.brand img{width:36px;height:36px}.header-actions{gap:3px}.login,.signup{font-size:12px;padding:8px 7px}.topbar .main-nav a{font-size:13px;padding:10px 8px}.welcome{gap:10px}.welcome h1{font-size:21px}.welcome p:not(.eyebrow){font-size:14px}.welcome-mark img{width:65px;height:65px}.game-art{font-size:38px}}
+/* BLOXITY revival additions: classic currency, Builders Club and admin panels */
+.currency-balances{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.currency-balances>div{background:#f5f5f5;border:1px solid #ccc;padding:12px;text-align:center}
+.currency-balances strong{display:block;font-size:23px;color:#1674ad}.currency-balances span{font-size:12px;color:#666}
+.bc-intro,.admin-note{background:#fff;border:1px solid #ccc;padding:12px;color:#555;font-size:14px}
+.bc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+.bc-card,.admin-card{background:#fff;border:1px solid #c7c7c7;padding:16px;box-shadow:0 1px 2px #0001}
+.bc-card{text-align:center}.bc-card h3{font-size:18px;font-weight:500}.bc-card p{font-size:13px;color:#666}
+.bc-hat{height:80px;width:110px;margin:0 auto 12px;border:1px solid #bbb;display:grid;place-items:center;font-size:48px;background:linear-gradient(#f9f9f9,#ddd)}
+.classic-hat{color:#e8b82d}.turbo-hat{color:#26a6d8}.outrage-hat{color:#b85a27}
+.bc-reward{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #ccc;padding:14px;margin-top:12px}.bc-reward p{font-size:13px;color:#666;margin:5px 0 0}
+.bc-choose:disabled{opacity:.55;cursor:not-allowed}
+.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.admin-card h3{margin:0 0 12px;font-size:17px;font-weight:500}.admin-card label{display:block;font-size:12px;margin:9px 0 4px;color:#555}.admin-card input,.admin-card select{width:100%;padding:9px;border:1px solid #aaa;border-radius:2px}.admin-card>.primary{margin-top:10px}.admin-actions{display:flex;gap:8px;margin-top:10px}.admin-actions button{flex:1}.admin-result{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;border:1px solid #ddd;padding:10px;font-size:12px;min-height:55px}
+@media(max-width:800px){.bc-grid,.admin-grid{grid-template-columns:1fr}.bc-reward{align-items:flex-start;flex-direction:column}.currency-balances{gap:5px}.currency-balances>div{padding:8px 3px}.currency-balances strong{font-size:18px}}
