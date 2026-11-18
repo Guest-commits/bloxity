@@ -377,3 +377,161 @@ footer{max-width:none;margin-top:28px;background:#333;border-radius:0}
  .home-friends-strip{gap:8px}
 }
 .classic-welcome.page-view.active{display:grid!important}
+
+/* BLOXITY v1.4 — 2017-era portal visual system (original fan-project styling) */
+:root{
+ --classic-blue:#0877bd;--classic-blue-dark:#075b94;--classic-link:#0876b9;
+ --classic-bg:#e7e7e7;--classic-panel:#fff;--classic-border:#c9c9c9;
+ --classic-muted:#777;--classic-green:#36a56b;
+}
+html{scroll-behavior:smooth}
+body{background:var(--classic-bg)!important;color:#393939!important;font-family:Arial,Helvetica,sans-serif!important}
+.topbar.classic-topbar{min-height:52px!important;background:var(--classic-blue)!important;border-bottom:1px solid #05639f!important;padding:4px max(12px,calc((100% - 1240px)/2))!important;gap:10px!important;box-shadow:0 1px 2px #0002!important}
+.classic-topbar .menu-toggle{width:32px!important;height:34px!important;font-size:22px!important}
+.classic-topbar .brand{gap:6px!important;font-size:19px!important;letter-spacing:-.3px}
+.classic-topbar .brand img{width:30px!important;height:30px!important;object-fit:contain!important;background:#fff;border-radius:2px!important;padding:2px}
+.classic-primary-nav{height:42px!important}
+.classic-primary-nav a{padding:0 12px!important;font-size:14px!important;font-weight:600!important}
+.classic-primary-nav a:hover,.classic-primary-nav a.active{background:#0665a4!important}
+.classic-search{height:32px!important;max-width:350px!important;flex:1 1 180px!important;display:flex!important;border:1px solid #b5d5e9!important;background:#fff!important}
+.classic-search input{min-width:0!important;flex:1!important;border:0!important;outline:0!important;padding:6px 10px!important;font-size:13px!important;background:#fff!important;color:#333!important}
+.classic-search button{width:38px!important;border:0!important;border-left:1px solid #d2d2d2!important;background:#f6f6f6!important;color:#28658c!important;font-size:20px!important}
+.classic-topbar .main-nav{top:52px!important;background:#fff!important;border:1px solid #bcbcbc!important;box-shadow:0 3px 9px #0003!important}
+.classic-topbar .main-nav a{color:#28658c!important;padding:11px 13px!important;font-size:13px!important}
+.classic-topbar .main-nav a:hover,.classic-topbar .main-nav a.active{background:#e9f4fb!important;color:#07588e!important}
+.classic-topbar .header-actions{gap:5px!important}
+.header-user{max-width:125px;overflow:hidden;text-overflow:ellipsis;color:#fff;font-size:12px;font-weight:600}
+.classic-topbar .coin-pill{background:#075b94!important;border:1px solid #4b9bc9!important;padding:4px 7px!important;border-radius:2px!important;font-size:12px!important}
+.classic-topbar .robux-mark{color:#a9e6bd!important;font-weight:800}
+.classic-topbar .tix-mark{color:#ffd28c!important}
+.classic-topbar .login,.classic-topbar .signup{font-size:12px!important;padding:7px 9px!important}
+main#home{width:min(1180px,calc(100% - 28px));max-width:1180px!important;margin:14px auto 0!important;padding:0!important;display:block!important}
+.page-view{display:none!important}
+.page-view.active{display:block!important}
+.classic-welcome.page-view.active{display:grid!important}
+.classic-welcome{grid-template-columns:112px minmax(0,1fr) 145px!important;align-items:center!important;gap:20px!important;min-height:166px!important;margin:0 0 14px!important;padding:14px 18px!important;background:#e5e5e5!important;border:1px solid #d1d1d1!important;box-shadow:none!important;border-radius:0!important}
+.home-avatar{width:104px!important;height:104px!important;border-radius:50%!important;background:#fff!important;border:5px solid #f8f8f8!important;box-shadow:0 1px 3px #0002!important;display:grid!important;place-items:center!important;overflow:hidden}
+.home-avatar img{width:84px!important;height:84px!important;object-fit:contain!important;border-radius:50%!important}
+.home-welcome-copy .eyebrow{color:#8b9ca6!important;font-size:11px!important;letter-spacing:.4px!important}
+.home-welcome-copy h1{font-size:30px!important;font-weight:400!important;margin:6px 0 8px!important;color:#333!important}
+.home-welcome-copy>p:not(.eyebrow){font-size:14px!important;color:#666!important;margin:4px 0!important}
+.home-welcome-copy .status{font-size:12px!important;color:#777!important}
+.home-welcome-copy .large{margin-top:6px!important;background:#00a2e8!important;border:0!important;border-radius:2px!important;padding:8px 13px!important;font-size:13px!important}
+.home-welcome-side{display:grid!important;gap:7px!important}
+.home-currency{background:#f8f8f8!important;border:1px solid #ccc!important;padding:8px 10px!important;border-radius:0!important}
+.home-panel{margin:0 0 14px!important;padding:13px 14px!important;background:#fff!important;border:1px solid #c9c9c9!important;border-radius:0!important;box-shadow:0 1px 2px #00000012!important}
+.classic-section-heading{margin:0 0 10px!important}
+.classic-section-heading h2{font-size:21px!important;font-weight:400!important;color:#555!important}
+.classic-section-heading a{padding:7px 14px!important;background:#00a2e8!important;border-radius:2px!important;font-size:12px!important}
+.home-friends-strip{min-height:90px!important;gap:13px!important}
+.home-friend{flex-basis:90px!important;font-size:11px!important}
+.home-friend-avatar{width:60px!important;height:60px!important;border-radius:50%!important;background:linear-gradient(#fff,#ededed)!important;border:1px solid #ddd!important}
+.home-game-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:10px!important}
+.home-game-tile{border:1px solid #c9c9c9!important;border-radius:0!important;box-shadow:0 1px 2px #0002!important}
+.home-game-thumb{aspect-ratio:1.13!important}
+.home-game-tile strong{font-size:12px!important;color:#555!important}
+.home-game-tile small{font-size:10px!important;color:#888!important}
+.home-promo{background:#fff!important}
+.section{width:100%!important;max-width:none!important;margin:0 0 16px!important}
+.section-heading{padding:0 0 9px!important;margin:0 0 12px!important;border-bottom:1px solid #ccc!important}
+.section-heading h2{font-size:23px!important;font-weight:400!important;color:#333!important;margin:0!important}
+.section-heading>span{font-size:12px!important;color:#888!important}
+/* Classic games discovery layout */
+.games-heading{align-items:end!important}
+.games-toolbar{display:flex!important;grid-template-columns:none!important;align-items:end!important;gap:12px!important;background:#f5f5f5!important;border:1px solid #ccc!important;padding:10px!important;margin:12px 0 15px!important}
+.games-toolbar label{display:flex!important;flex-direction:column!important;gap:5px!important;min-width:130px!important;color:#555!important;font-size:12px!important}
+.games-toolbar label span{font-size:12px!important;font-weight:400!important}
+.games-toolbar input,.games-toolbar select{height:34px!important;padding:7px 9px!important;background:#fff!important;color:#444!important;border:1px solid #aaa!important;border-radius:0!important;font-size:13px!important}
+.games-toolbar .game-search{flex:1!important}
+.games-section-title{display:flex!important;justify-content:space-between!important;align-items:center!important;margin:0 0 10px!important}
+.games-section-title h3{margin:0!important;font-size:21px!important;font-weight:400!important;color:#555!important}
+.games-section-title span{padding:7px 14px!important;background:#00a2e8!important;color:#fff!important;font-size:12px!important}
+.game-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:13px!important}
+.game-card{padding:0!important;background:#fff!important;border:1px solid #c9c9c9!important;border-radius:0!important;box-shadow:0 1px 2px #0002!important;overflow:hidden!important}
+.game-art{aspect-ratio:1.5!important;height:auto!important;border-radius:0!important;font-size:50px!important}
+.game-info{padding:8px 9px 10px!important}
+.game-info h3{font-size:15px!important;font-weight:400!important;margin:0 0 5px!important;color:#444!important}
+.game-info p{font-size:12px!important;color:#777!important;margin:0 0 5px!important}
+.game-rating{font-size:11px!important;color:#777!important;margin:4px 0 7px!important}
+.game-open{padding:6px 9px!important;background:#f5f5f5!important;border:1px solid #bbb!important;color:#444!important;border-radius:1px!important;font-size:11px!important}
+/* Catalog closely follows the classic left-category / item-grid arrangement */
+.classic-catalog-layout{grid-template-columns:165px minmax(0,1fr)!important;gap:12px!important}
+.classic-catalog-sidebar{padding:11px!important;background:#fff!important;border:1px solid #c9c9c9!important}
+.classic-catalog-sidebar h3{font-size:17px!important;font-weight:400!important;color:#444!important}
+.classic-catalog-sidebar .catalog-filter{font-size:12px!important;padding:7px!important}
+.classic-catalog-content .catalog-toolbar{display:grid!important;grid-template-columns:minmax(0,1fr) 175px!important;background:#f5f5f5!important;padding:8px!important}
+.classic-catalog-content .catalog-toolbar input,.classic-catalog-content .catalog-toolbar select{height:34px!important;font-size:12px!important}
+.catalog-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important}
+.catalog-item{padding:6px!important;border:1px solid #c9c9c9!important;background:#fff!important;box-shadow:0 1px 2px #0002!important}
+.catalog-art{height:118px!important;background:#f4f4f4!important;border-bottom:1px solid #e2e2e2!important}
+.catalog-object-image{max-width:100%!important;max-height:100%!important}
+.catalog-item h3{font-size:12px!important;color:#555!important}
+.catalog-price{font-size:11px!important;color:#31915f!important;font-weight:600!important}
+.catalog-item button{width:100%!important;margin-top:5px!important;padding:7px 5px!important;font-size:11px!important;background:#00a2e8!important}
+.catalog-item button.owned-item{background:#eee!important;color:#444!important;border:1px solid #ccc!important}
+.catalog-equipped{margin-top:12px!important;padding:12px!important;background:#fff!important;border:1px solid #ccc!important}
+/* Old portal treatment for secondary pages and admin */
+.avatar-layout,.friends-panel,.wallet-card,.transactions-card,.bc-card,.admin-card,.admin-console,.catalog-equipped{border:1px solid #c9c9c9!important;border-radius:0!important;box-shadow:0 1px 2px #0002!important}
+.avatar-stage{background:#e6e6e6!important;border-radius:0!important}
+.avatar-controls{border-radius:0!important}
+.admin-console{background:#eee!important}
+.admin-sidebar{background:#e4e4e4!important}
+.admin-workspace{background:#f6f6f6!important}
+.admin-toolbar{background:#fff!important}
+.primary,.classic-blue-button{background:#00a2e8!important;border-radius:1px!important}
+input,select,textarea{border-radius:1px!important}
+dialog{border-radius:2px!important}
+footer{width:100%!important;max-width:none!important;padding:20px max(16px,calc((100% - 1180px)/2))!important;background:#333!important;color:#ddd!important;border-top:1px solid #555!important}
+@media(max-width:1050px){
+ .home-game-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .classic-topbar{gap:6px!important}
+ .classic-primary-nav a{padding:0 8px!important}
+ .classic-search{max-width:230px!important}
+}
+@media(max-width:800px){
+ main#home{width:calc(100% - 20px)!important;margin:10px auto 0!important}
+ .topbar.classic-topbar{min-height:50px!important;padding:5px 8px!important;gap:5px!important}
+ .classic-topbar .brand span{display:none}
+ .classic-primary-nav{display:none!important}
+ .classic-search{max-width:none!important;flex:1 1 70px!important;height:30px!important}
+ .classic-topbar .header-actions{gap:3px!important}
+ .classic-topbar .header-actions select{display:none!important}
+ .classic-topbar .coin-pill{padding:3px 5px!important;font-size:10px!important}
+ .classic-topbar .login,.classic-topbar .signup{padding:6px 6px!important;font-size:10px!important}
+ .classic-welcome{grid-template-columns:70px minmax(0,1fr)!important;gap:10px!important;padding:11px!important;min-height:0!important}
+ .home-avatar{width:66px!important;height:66px!important;border-width:3px!important}
+ .home-avatar img{width:56px!important;height:56px!important}
+ .home-welcome-copy h1{font-size:21px!important}
+ .home-welcome-copy>p:not(.eyebrow){font-size:12px!important}
+ .home-welcome-side{grid-column:1/-1;display:flex!important;gap:7px!important}
+ .home-currency{flex:1;padding:6px 8px!important}
+ .home-panel{padding:10px!important;margin-bottom:10px!important}
+ .home-game-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+ .home-game-thumb{font-size:14px!important}
+ .classic-catalog-layout{grid-template-columns:1fr!important}
+ .classic-catalog-sidebar{padding:8px!important}
+ .classic-catalog-sidebar .catalog-filters{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .classic-catalog-sidebar .catalog-filter{text-align:center!important;font-size:11px!important;padding:8px 3px!important}
+ .catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .games-toolbar{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+ .games-toolbar .game-search{grid-column:1/-1!important}
+ .games-toolbar label{min-width:0!important}
+ .admin-console{grid-template-columns:1fr!important}
+ .admin-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:480px){
+ .classic-topbar .brand img{width:27px!important;height:27px!important}
+ .classic-topbar .header-actions .login,.classic-topbar .header-actions .signup{max-width:64px;overflow:hidden;white-space:nowrap}
+ .classic-topbar .coin-pill{gap:2px!important;padding:3px!important}
+ .home-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .catalog-art{height:110px!important}
+ .classic-catalog-content .catalog-toolbar{grid-template-columns:1fr!important}
+ .game-art{aspect-ratio:1.25!important}
+ .games-toolbar{padding:7px!important}
+ .friend-columns{grid-template-columns:1fr!important}
+ .currency-balances{grid-template-columns:1fr 1fr!important}
+ .bc-grid{grid-template-columns:1fr!important}
+}
