@@ -7,7 +7,8 @@
 <body>
 <header class="topbar">
  <a class="brand" href="#home"><img src="assets/logo.png" alt="BLOXITY"><span>BLOXITY</span></a>
- <nav class="main-nav" aria-label="Navegación principal">
+ <button id="menuToggle" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+ <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
  <a href="#home" data-page="home" class="nav-link active" data-i18n="navHome">Inicio</a>
  <a href="#games" data-page="games" class="nav-link" data-i18n="navGames">Juegos</a>
  <a href="#avatar" data-page="avatar" class="nav-link" data-i18n="navAvatar">Avatar</a>
@@ -60,12 +61,12 @@
  </section>
  <section id="admin" class="section page-view" data-view="admin">
   <div class="section-heading"><h2>Panel de administración</h2><span>SOLO PERSONAL AUTORIZADO</span></div>
-  <p class="admin-note">El ID 1 es el propietario principal. Solo el ID 1 puede otorgar o retirar permisos de administrador. Los demás administradores pueden gestionar saldos.</p>
-  <div class="admin-grid">
-   <div class="admin-card"><h3>Permisos de administrador</h3><label for="adminPlayerId">ID del jugador</label><input id="adminPlayerId" type="number" min="1" placeholder="Ej. 25"><div class="admin-actions"><button id="grantAdmin" class="primary">Dar Admin</button><button id="revokeAdmin" class="login">Quitar Admin</button></div><p id="adminRoleMessage" class="small-message"></p></div>
-   <div class="admin-card"><h3>Consultar jugador</h3><label for="lookupPlayerId">ID del jugador</label><input id="lookupPlayerId" type="number" min="1" placeholder="Ej. 25"><button id="lookupPlayer" class="primary">Buscar</button><pre id="lookupResult" class="admin-result">Sin búsqueda.</pre></div>
-   <div class="admin-card"><h3>Otorgar moneda</h3><label for="currencyPlayerId">ID del jugador</label><input id="currencyPlayerId" type="number" min="1" placeholder="Ej. 25"><label for="grantCurrency">Moneda</label><select id="grantCurrency"><option value="robux">Robux</option><option value="tix">Tix</option></select><label for="grantAmount">Cantidad</label><input id="grantAmount" type="number" min="1" max="1000000" placeholder="Cantidad"><label for="grantReason">Motivo</label><input id="grantReason" maxlength="120" placeholder="Motivo del ajuste"><button id="grantCurrencyButton" class="primary">Otorgar</button><p id="adminCurrencyMessage" class="small-message"></p></div>
-  </div>
+  <p class="admin-note">Centro de control de BLOXITY · Herramientas para el personal autorizado. El ID 1 conserva el control de los permisos de administrador.</p>
+  <div class="admin-console"><aside class="admin-sidebar"><strong>ADMINISTRACIÓN</strong><a href="#admin-users">Usuarios</a><a href="#admin-permissions">Permisos</a><a href="#admin-currency">Economía</a><a href="#admin-logs">Registros</a><span class="admin-sidebar-foot">BLOXITY STAFF</span></aside><div class="admin-workspace"><div class="admin-toolbar"><span>Panel de control</span><span class="admin-secure">● Sesión administrativa</span></div><div class="admin-grid">
+   <div class="admin-card" id="admin-permissions"><h3>Permisos de administrador</h3><label for="adminPlayerId">ID del jugador</label><input id="adminPlayerId" type="number" min="1" placeholder="Ej. 25"><div class="admin-actions"><button id="grantAdmin" class="primary">Dar Admin</button><button id="revokeAdmin" class="login">Quitar Admin</button></div><p id="adminRoleMessage" class="small-message"></p></div>
+   <div class="admin-card" id="admin-users"><h3>Consultar jugador</h3><label for="lookupPlayerId">ID del jugador</label><input id="lookupPlayerId" type="number" min="1" placeholder="Ej. 25"><button id="lookupPlayer" class="primary">Buscar</button><pre id="lookupResult" class="admin-result">Sin búsqueda.</pre></div>
+   <div class="admin-card" id="admin-currency"><h3>Otorgar moneda</h3><label for="currencyPlayerId">ID del jugador</label><input id="currencyPlayerId" type="number" min="1" placeholder="Ej. 25"><label for="grantCurrency">Moneda</label><select id="grantCurrency"><option value="robux">Robux</option><option value="tix">Tix</option></select><label for="grantAmount">Cantidad</label><input id="grantAmount" type="number" min="1" max="1000000" placeholder="Cantidad"><label for="grantReason">Motivo</label><input id="grantReason" maxlength="120" placeholder="Motivo del ajuste"><button id="grantCurrencyButton" class="primary">Otorgar</button><p id="adminCurrencyMessage" class="small-message"></p></div>
+  </div><div id="admin-logs" class="admin-log-placeholder">Los registros de actividad se mostrarán aquí cuando se conecte el sistema de auditoría.</div></div></div>
  </section>
  <section id="avatar" class="section page-view" data-view="avatar">
   <div class="section-heading"><h2 data-i18n="avatarTitle">Editor de avatar</h2><span data-i18n="classicAvatar">R6 / R15</span></div>

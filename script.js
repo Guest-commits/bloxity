@@ -151,7 +151,7 @@ function renderCatalog(){
  if(!items.length){grid.innerHTML=`<p class="empty">${lang==="es"?"No hay artículos con esa búsqueda.":"No items match your search."}</p>`;return}
  items.forEach(item=>{
   const card=document.createElement("article");card.className="catalog-item";
-  const art=document.createElement("div");art.className="catalog-art";const emoji=document.createElement("span");emoji.textContent=item.icon;art.append(emoji);
+  const art=document.createElement("div");art.className="catalog-art";const picture=document.createElement("img");picture.className="catalog-object-image";picture.alt=item.name;const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#d9e9f5"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".2"/></filter></defs><rect width="240" height="180" rx="9" fill="url(#bg)"/><circle cx="190" cy="32" r="35" fill="#fff" opacity=".55"/><path d="M0 150 Q80 120 150 155 T240 145 V180 H0" fill="#c6ddeb" opacity=".5"/><text x="120" y="116" text-anchor="middle" font-size="88" filter="url(#s)">${item.icon}</text><path d="M30 18h45" stroke="${item.color||"#168bd0"}" stroke-width="5" stroke-linecap="round" opacity=".65"/></svg>`;picture.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);art.append(picture);
   const name=document.createElement("h3");name.textContent=item.name;
   const price=document.createElement("div");price.className="catalog-price";price.textContent=`${item.currency==="tix"?"🎟️":item.currency==="robux"?"R$":"◇"} ${Number(item.price).toLocaleString(lang==="es"?"es-GT":"en-US")} ${item.currency==="tix"?"Tix":item.currency==="robux"?"Robux":"BloxCoins"}`;
   const btn=document.createElement("button");
@@ -291,6 +291,15 @@ $("grantAdmin").onclick=async()=>{if(platformStatus?.player_id!==1){msg("adminRo
 $("revokeAdmin").onclick=async()=>{if(platformStatus?.player_id!==1){msg("adminRoleMessage","Solo el ID 1 puede retirar administradores.",true);return}const id=Number($("adminPlayerId").value);if(!Number.isSafeInteger(id)||id<1){msg("adminRoleMessage","Escribe un ID válido.",true);return}await adminCall("admin_revoke_admin",{p_player_id:id},"adminRoleMessage")};
 $("lookupPlayer").onclick=async()=>{const id=Number($("lookupPlayerId").value);if(!Number.isSafeInteger(id)||id<1){$("lookupResult").textContent="ID no válido.";return}const data=await adminCall("admin_lookup_player",{p_player_id:id},"adminRoleMessage");if(data)$("lookupResult").textContent=JSON.stringify(data,null,2)};
 $("grantCurrencyButton").onclick=async()=>{const id=Number($("currencyPlayerId").value),amount=Number($("grantAmount").value);if(!Number.isSafeInteger(id)||id<1||!Number.isSafeInteger(amount)||amount<1){msg("adminCurrencyMessage","Revisa el ID y la cantidad.",true);return}await adminCall("admin_grant_currency",{p_player_id:id,p_currency:$("grantCurrency").value,p_amount:amount,p_reason:$("grantReason").value||"Ajuste administrativo"},"adminCurrencyMessage")};
+
+// Classic hamburger menu for desktop and mobile.
+(function initClassicMenu(){
+ const toggle=$("menuToggle"),nav=$("mainNav");if(!toggle||!nav)return;
+ const close=()=>{nav.classList.remove("menu-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Abrir menú")};
+ toggle.addEventListener("click",()=>{const open=!nav.classList.contains("menu-open");nav.classList.toggle("menu-open",open);toggle.setAttribute("aria-expanded",String(open));toggle.setAttribute("aria-label",open?"Cerrar menú":"Abrir menú")});
+ nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",close));
+ document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+})();
 
 renderCatalog();
 

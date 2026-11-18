@@ -201,3 +201,28 @@ button,input,select{font-family:Arial,Helvetica,sans-serif}
 .bc-choose:disabled{opacity:.55;cursor:not-allowed}
 .admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.admin-card h3{margin:0 0 12px;font-size:17px;font-weight:500}.admin-card label{display:block;font-size:12px;margin:9px 0 4px;color:#555}.admin-card input,.admin-card select{width:100%;padding:9px;border:1px solid #aaa;border-radius:2px}.admin-card>.primary{margin-top:10px}.admin-actions{display:flex;gap:8px;margin-top:10px}.admin-actions button{flex:1}.admin-result{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;border:1px solid #ddd;padding:10px;font-size:12px;min-height:55px}
 @media(max-width:800px){.bc-grid,.admin-grid{grid-template-columns:1fr}.bc-reward{align-items:flex-start;flex-direction:column}.currency-balances{gap:5px}.currency-balances>div{padding:8px 3px}.currency-balances strong{font-size:18px}}
+
+/* BLOXITY v1.0 — classic portal navigation, illustrated catalog and staff console */
+.menu-toggle{display:inline-grid;place-items:center;width:38px;height:38px;border:0;border-radius:3px;background:transparent;color:#fff;font-size:25px;line-height:1;order:-1}
+.menu-toggle:hover{background:#07558e}
+.main-nav{display:flex!important}
+.catalog-art{height:130px!important;background:#e6eef4!important;display:grid;place-items:center;overflow:hidden;padding:5px}
+.catalog-object-image{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 2px #0002)}
+.catalog-item{overflow:hidden;border:1px solid #d1d1d1!important;border-radius:2px!important;box-shadow:0 1px 2px #00000012}
+.catalog-item h3{font-size:13px!important;font-weight:500!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-console{display:grid;grid-template-columns:190px minmax(0,1fr);background:#f4f4f4;border:1px solid #c9c9c9;min-height:380px;margin-top:15px;box-shadow:0 1px 3px #00000012}
+.admin-sidebar{background:#e2e2e2;border-right:1px solid #c5c5c5;padding:15px 0;display:flex;flex-direction:column;gap:2px}
+.admin-sidebar strong{font-size:11px;letter-spacing:.7px;color:#555;padding:5px 14px 13px}
+.admin-sidebar a{padding:10px 14px;color:#28618b;text-decoration:none;font-size:13px;border-left:3px solid transparent}
+.admin-sidebar a:hover,.admin-sidebar a:focus{background:#fff;border-left-color:#00a2ff}
+.admin-sidebar-foot{margin:auto 14px 0;padding-top:20px;font-size:10px;color:#8a8a8a;font-weight:bold}
+.admin-workspace{min-width:0;padding:0 16px 18px}
+.admin-toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 -16px 15px;padding:13px 16px;background:#fff;border-bottom:1px solid #ccc;font-size:14px;font-weight:bold}
+.admin-secure{font-size:11px;color:#39834c;font-weight:600}
+.admin-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.admin-card{background:#fff;border:1px solid #d0d0d0!important;border-radius:2px!important;padding:15px!important;box-shadow:0 1px 2px #0000000b}
+.admin-card h3{padding-bottom:9px;border-bottom:1px solid #e7e7e7;color:#333}
+.admin-card .primary{background:#168bd0}
+.admin-log-placeholder{margin-top:13px;background:#fff;border:1px solid #d0d0d0;padding:13px;color:#777;font-size:12px}
+@media(max-width:800px){.topbar{flex-wrap:nowrap!important}.menu-toggle{flex:0 0 38px}.main-nav{display:none!important;position:absolute;z-index:50;top:58px;left:8px;right:8px;background:#07558e;box-shadow:0 5px 15px #0004;padding:7px!important;flex-direction:column;align-items:stretch;gap:2px!important;order:initial!important;flex-basis:auto!important;overflow:visible!important}.main-nav.menu-open{display:flex!important}.main-nav a{padding:12px!important;border-bottom:1px solid #ffffff20}.header-actions{margin-left:auto;min-width:0}.admin-console{grid-template-columns:1fr}.admin-sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}.admin-sidebar strong,.admin-sidebar-foot{grid-column:1/-1}.admin-grid{grid-template-columns:1fr!important}.catalog-art{height:105px!important}}
+@media(min-width:801px){.topbar{position:relative}.main-nav{display:none!important;position:absolute;z-index:60;top:58px;left:max(3%,calc((100% - 1180px)/2));width:245px;background:#07558e;box-shadow:0 5px 15px #0004;padding:7px!important;flex-direction:column;align-items:stretch;gap:2px!important}.main-nav.menu-open{display:flex!important}.main-nav a{padding:12px!important;border-bottom:1px solid #ffffff20}}
