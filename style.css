@@ -226,3 +226,14 @@ button,input,select{font-family:Arial,Helvetica,sans-serif}
 .admin-log-placeholder{margin-top:13px;background:#fff;border:1px solid #d0d0d0;padding:13px;color:#777;font-size:12px}
 @media(max-width:800px){.topbar{flex-wrap:nowrap!important}.menu-toggle{flex:0 0 38px}.main-nav{display:none!important;position:absolute;z-index:50;top:58px;left:8px;right:8px;background:#07558e;box-shadow:0 5px 15px #0004;padding:7px!important;flex-direction:column;align-items:stretch;gap:2px!important;order:initial!important;flex-basis:auto!important;overflow:visible!important}.main-nav.menu-open{display:flex!important}.main-nav a{padding:12px!important;border-bottom:1px solid #ffffff20}.header-actions{margin-left:auto;min-width:0}.admin-console{grid-template-columns:1fr}.admin-sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}.admin-sidebar strong,.admin-sidebar-foot{grid-column:1/-1}.admin-grid{grid-template-columns:1fr!important}.catalog-art{height:105px!important}}
 @media(min-width:801px){.topbar{position:relative}.main-nav{display:none!important;position:absolute;z-index:60;top:58px;left:max(3%,calc((100% - 1180px)/2));width:245px;background:#07558e;box-shadow:0 5px 15px #0004;padding:7px!important;flex-direction:column;align-items:stretch;gap:2px!important}.main-nav.menu-open{display:flex!important}.main-nav a{padding:12px!important;border-bottom:1px solid #ffffff20}}
+
+/* BLOXITY v1.2 — independent classic Robux and Tickets wallets */
+.currency-balances.dual-currency{grid-template-columns:repeat(2,minmax(0,1fr));max-width:420px}
+.currency-balances.dual-currency>div{border-radius:4px;background:#fff}
+.currency-balances .robux-balance strong{color:#169b58}
+.currency-balances .tix-balance strong{color:#d77a16}
+.robux-mark{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#159b58;color:#fff;font-size:9px;font-weight:900;border:2px solid #fff}
+.tix-mark{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:4px;background:#e98a22;color:#fff;font-size:15px;border:1px solid #ffd08b}
+.robux-pill{background:#07558e}.tix-pill{background:#8b4e12;border-color:#f3b15f}
+.wallet-symbol{font-size:19px;letter-spacing:-1px}
+@media(max-width:700px){.currency-balances.dual-currency{max-width:none}.header-actions{flex-wrap:wrap}.coin-pill{font-size:10px;padding:4px 6px}}

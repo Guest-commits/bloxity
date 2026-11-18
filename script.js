@@ -120,7 +120,7 @@ $("avatarFigure").classList.add("anim-idle");
 
 // BLOXITY catalog: original sample items, no paid purchases in this prototype.
 const catalogItems=[
-{id:"cap_blue",name:"Gorra clásica azul",category:"hats",icon:"🧢",price:250,kind:"cap",color:"#167ac6"},
+{id:"cap_blue",name:"Gorra clásica azul",category:"hats",icon:"🧢",price:250,currency:"robux",kind:"cap",color:"#167ac6"},
 {id:"crown_gold",name:"Corona dorada",category:"hats",icon:"👑",price:1500,kind:"crown",color:"#f3c644"},
 {id:"beanie",name:"Gorro tejido",category:"hats",icon:"🎩",price:180,kind:"beanie",color:"#7a4bb7"},
 {id:"hair_brown",name:"Pelo castaño",category:"hair",icon:"💇",price:120,kind:"hair",color:"#70452e"},
@@ -153,7 +153,7 @@ function renderCatalog(){
   const card=document.createElement("article");card.className="catalog-item";
   const art=document.createElement("div");art.className="catalog-art";const picture=document.createElement("img");picture.className="catalog-object-image";picture.alt=item.name;const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#d9e9f5"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-opacity=".2"/></filter></defs><rect width="240" height="180" rx="9" fill="url(#bg)"/><circle cx="190" cy="32" r="35" fill="#fff" opacity=".55"/><path d="M0 150 Q80 120 150 155 T240 145 V180 H0" fill="#c6ddeb" opacity=".5"/><text x="120" y="116" text-anchor="middle" font-size="88" filter="url(#s)">${item.icon}</text><path d="M30 18h45" stroke="${item.color||"#168bd0"}" stroke-width="5" stroke-linecap="round" opacity=".65"/></svg>`;picture.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);art.append(picture);
   const name=document.createElement("h3");name.textContent=item.name;
-  const price=document.createElement("div");price.className="catalog-price";price.textContent=`${item.currency==="tix"?"🎟️":item.currency==="robux"?"R$":"◇"} ${Number(item.price).toLocaleString(lang==="es"?"es-GT":"en-US")} ${item.currency==="tix"?"Tix":item.currency==="robux"?"Robux":"BloxCoins"}`;
+  const currency=item.currency||"robux";const price=document.createElement("div");price.className="catalog-price";price.textContent=`${currency==="tix"?"🎟️":"R$"} ${Number(item.price).toLocaleString(lang==="es"?"es-GT":"en-US")} ${currency==="tix"?"Tix":"Robux"}`;
   const btn=document.createElement("button");
   const owned=ownedItems.has(item.id),isOn=equippedItems.includes(item.id);
   btn.className=owned?"owned-item":"buy-item";
@@ -181,12 +181,12 @@ $("catalogSearch").addEventListener("input",renderCatalog);
 document.querySelectorAll(".catalog-filter").forEach(b=>b.addEventListener("click",()=>{catalogCategory=b.dataset.category;document.querySelectorAll(".catalog-filter").forEach(x=>x.classList.toggle("active",x===b));renderCatalog()}));
 $("clearCatalog").addEventListener("click",()=>{equippedItems=[];if(window.bloxityR6)window.bloxityR6.setEquipped(equippedItems);renderCatalog();msg("catalogMessage",lang==="es"?"Has quitado todos los artículos.":"All items removed.")});
 
-// BLOXITY v0.7 economy: all balance changes happen in secure Supabase RPC functions.
+// BLOXITY v1.2 economy: Robux and Tix are separate server-side currencies.
 function formatCoins(value){return Number(value||0).toLocaleString(lang==="es"?"es-GT":"en-US")}
-function showBalance(value){
- const formatted=value==="---"?"---":formatCoins(value);
- $("coinBalance").textContent=formatted;
- $("headerCoins").textContent=formatted;
+function showCurrencyBalances(robux,tix){
+ const r=robux==="---"?"---":formatCoins(robux),t=tix==="---"?"---":formatCoins(tix);
+ $("robuxBalance").textContent=r;$("tixBalance").textContent=t;
+ $("headerRobux").textContent=r;$("headerTix").textContent=t;
 }
 function transactionLabel(type){
  const labels={starter_bonus:"Bono inicial",daily_reward:"Recompensa diaria",purchase:"Compra de artículo",builders_club_daily:"Builders Club: recompensa diaria",admin_grant:"Ajuste administrativo"};
@@ -195,68 +195,38 @@ function transactionLabel(type){
 async function loadEconomy(){
  if(!client||!profile){
   platformStatus=null;updateStatus();
-  showBalance("---");$("walletStatus").textContent="Inicia sesión para consultar tu saldo.";
-  $("claimDaily").disabled=true;$("claimTixDaily").disabled=true;$("claimBcDaily").disabled=true;$("dailyStatus").textContent="";$("tixDailyStatus").textContent="";$("bcStatus").textContent="Inicia sesión y elige un nivel para activar tu recompensa.";
+  showCurrencyBalances("---","---");$("walletStatus").textContent="Inicia sesión para consultar tus saldos.";
+  $("claimTixDaily").disabled=true;$("claimBcDaily").disabled=true;$("tixDailyStatus").textContent="";$("bcStatus").textContent="Inicia sesión y elige un nivel para activar tu recompensa.";
   $("transactionList").innerHTML='<p class="empty">Inicia sesión para ver tus movimientos.</p>';
   ownedItems=new Set();renderCatalog();return;
  }
  const {data:userData,error:userError}=await client.auth.getUser();
  if(userError||!userData.user)return;
  const uid=userData.user.id;
- const [wallet,inventory,transactions,status,currencyTransactions]=await Promise.all([
-  client.from("profiles").select("coin_balance,last_daily_claim_at,robux_balance,tix_balance,bc_tier,bc_daily_claim_at,player_id,tix_daily_claim_at").eq("id",uid).single(),
+ const [wallet,inventory,status,currencyTransactions]=await Promise.all([
+  client.from("profiles").select("robux_balance,tix_balance,bc_tier,bc_daily_claim_at,player_id,tix_daily_claim_at").eq("id",uid).single(),
   client.from("user_inventory").select("item_id").eq("user_id",uid),
-  client.from("wallet_transactions").select("transaction_type,amount,balance_after,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(10),
   client.rpc("get_my_platform_status"),
   client.from("currency_transactions").select("currency,amount,balance_after,transaction_type,description,created_at").eq("user_id",uid).order("created_at",{ascending:false}).limit(10)
  ]);
- if(wallet.error){$("walletStatus").textContent="Ejecuta la migración v0.7 de Supabase.";msg("dailyStatus",wallet.error.message,true);return}
- showBalance(wallet.data.coin_balance);$("robuxBalance").textContent=formatCoins(wallet.data.robux_balance);$("tixBalance").textContent=formatCoins(wallet.data.tix_balance);$("walletStatus").textContent=`ID de jugador: ${wallet.data.player_id} · Tu saldo está guardado en tu cuenta.`;platformStatus=status.data||null;updateStatus();updateBcPanel(wallet.data);
+ if(wallet.error){$("walletStatus").textContent="Ejecuta la migración v0.7 de Supabase.";msg("walletStatus",wallet.error.message,true);return}
+ showCurrencyBalances(wallet.data.robux_balance,wallet.data.tix_balance);$("walletStatus").textContent=`ID de jugador: ${wallet.data.player_id} · Tu saldo está guardado en tu cuenta.`;platformStatus=status.data||null;updateStatus();updateBcPanel(wallet.data);
  ownedItems=new Set((inventory.data||[]).map(x=>x.item_id));
  renderCatalog();
  if(inventory.error)msg("catalogMessage",inventory.error.message,true);
  const list=$("transactionList");list.innerHTML="";
- (transactions.data||[]).forEach(t=>{
-  const row=document.createElement("div");row.className="transaction-row";
-  const info=document.createElement("div");info.className="transaction-info";
-  const label=document.createElement("strong");label.textContent=transactionLabel(t.transaction_type);
-  const date=document.createElement("span");date.textContent=new Date(t.created_at).toLocaleString(lang==="es"?"es-GT":"en-US",{dateStyle:"short",timeStyle:"short"});
-  info.append(label,date);
-  const amount=document.createElement("span");amount.className="transaction-amount "+(Number(t.amount)>=0?"positive":"negative");
-  amount.textContent=(Number(t.amount)>0?"+":"")+formatCoins(t.amount)+" ◇";
-  row.append(info,amount);list.append(row);
- });
- if(!(transactions.data||[]).length)list.innerHTML='<p class="empty">Todavía no hay movimientos.</p>';
- if(transactions.error)list.innerHTML='<p class="empty">No se pudo cargar el historial.</p>';
  (currencyTransactions.data||[]).forEach(t=>{
+  if(!["robux","tix"].includes(t.currency))return;
   const row=document.createElement("div");row.className="transaction-row";
   const info=document.createElement("div");info.className="transaction-info";
-  const label=document.createElement("strong");label.textContent=(t.currency==="robux"?"Robux":"Tix")+" · "+(t.description||transactionLabel(t.transaction_type));
+  const label=document.createElement("strong");label.textContent=(t.currency==="robux"?"Robux":"Tickets (Tix)")+" · "+(t.description||transactionLabel(t.transaction_type));
   const date=document.createElement("span");date.textContent=new Date(t.created_at).toLocaleString(lang==="es"?"es-GT":"en-US",{dateStyle:"short",timeStyle:"short"});info.append(label,date);
-  const amount=document.createElement("span");amount.className="transaction-amount "+(Number(t.amount)>=0?"positive":"negative");amount.textContent=(Number(t.amount)>0?"+":"")+formatCoins(t.amount)+" "+(t.currency==="robux"?"R$":"Tix");row.append(info,amount);list.append(row);
+  const amount=document.createElement("span");amount.className="transaction-amount "+(Number(t.amount)>=0?"positive":"negative");amount.textContent=(Number(t.amount)>0?"+":"")+formatCoins(t.amount)+(t.currency==="robux"?" R$":" Tix");row.append(info,amount);list.append(row);
  });
- updateDailyButton(wallet.data.last_daily_claim_at);updateTixDailyButton(wallet.data.tix_daily_claim_at);
+ if(!list.children.length)list.innerHTML="<p class=\"empty\">Todavía no hay movimientos de Robux o Tix.</p>";
+ if(currencyTransactions.error)list.innerHTML="<p class=\"empty\">No se pudo cargar el historial de monedas.</p>";
+ updateTixDailyButton(wallet.data.tix_daily_claim_at);
 }
-function updateDailyButton(lastClaim){
- const button=$("claimDaily");
- if(!profile||!client){button.disabled=true;return}
- if(!lastClaim){button.disabled=false;$("dailyStatus").textContent="¡Tu primera recompensa está lista!";return}
- const next=new Date(new Date(lastClaim).getTime()+24*60*60*1000),remaining=next-Date.now();
- if(remaining<=0){button.disabled=false;$("dailyStatus").textContent="Tu recompensa diaria está disponible.";return}
- button.disabled=true;
- const hours=Math.floor(remaining/3600000),minutes=Math.floor((remaining%3600000)/60000);
- $("dailyStatus").textContent=`Próxima recompensa en ${hours} h ${minutes} min.`;
-}
-$("claimDaily").addEventListener("click",async()=>{
- if(!client||!profile){msg("dailyStatus","Inicia sesión para reclamar.",true);return}
- $("claimDaily").disabled=true;
- const {data,error}=await client.rpc("claim_daily_reward");
- if(error){msg("dailyStatus",error.message,true);$("claimDaily").disabled=false;return}
- if(!data.ok){msg("dailyStatus",data.message||"Todavía no está disponible.",true);updateDailyButton(data.last_daily_claim_at);return}
- msg("dailyStatus","¡Reclamaste +100 BloxCoins!");
- await loadEconomy();
-});
-
 function updateTixDailyButton(lastClaim){const b=$("claimTixDaily");if(!profile||!client){b.disabled=true;return}const remaining=lastClaim?new Date(lastClaim).getTime()+86400000-Date.now():0;b.disabled=remaining>0;if(remaining>0){const h=Math.floor(remaining/3600000),m=Math.floor(remaining%3600000/60000);$("tixDailyStatus").textContent=`Próxima recompensa de Tix en ${h} h ${m} min.`}else $("tixDailyStatus").textContent="Puedes reclamar 10 Tix hoy."}
 $("claimTixDaily").addEventListener("click",async()=>{if(!client||!profile)return;$("claimTixDaily").disabled=true;const {data,error}=await client.rpc("claim_tix_daily_reward");if(error){msg("tixDailyStatus",error.message,true);$("claimTixDaily").disabled=false;return}msg("tixDailyStatus",data.message,!data.ok);await loadEconomy()});
 
@@ -265,7 +235,7 @@ async function purchaseCatalogItem(item){
  const {data,error}=await client.rpc("purchase_catalog_item",{p_item_id:item.id});
  if(error){msg("catalogMessage",error.message,true);return}
  if(!data.ok){msg("catalogMessage",data.message||"No se pudo completar la compra.",true);return}
- msg("catalogMessage",`¡Compraste ${item.name} por ${formatCoins(data.price)} ${data.currency==="tix"?"Tix":data.currency==="robux"?"Robux":"BloxCoins"}!`);
+ msg("catalogMessage",`¡Compraste ${item.name} por ${formatCoins(data.price)} ${data.currency==="tix"?"Tix":"Robux"}!`);
  await loadEconomy();
 }
 
